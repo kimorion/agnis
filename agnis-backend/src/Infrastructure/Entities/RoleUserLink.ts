@@ -1,10 +1,12 @@
-import { Column, Entity } from 'typeorm';
+import { Entity, ManyToOne } from 'typeorm';
+import { Role } from './Role';
+import { User } from './User';
 
 @Entity()
 export class RoleUserLink {
-  @Column()
-  roleId!: string;
+  @ManyToOne(() => Role, { primary: true, nullable: false })
+  role!: Role;
 
-  @Column()
-  userId!: string;
+  @ManyToOne(() => User, { primary: true, nullable: false })
+  user!: User;
 }

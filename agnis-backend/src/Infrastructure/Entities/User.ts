@@ -5,15 +5,15 @@ export class User {
   @PrimaryGeneratedColumn('uuid')
   id!: string;
 
-  @Column()
-  firstName?: string;
+  @Column('varchar', { length: 100, nullable: false })
+  firstName!: string;
 
-  @Column()
-  lastName?: string;
+  @Column('varchar', { length: 100, nullable: false })
+  lastName!: string;
 
-  @Column('date')
+  @Column('date', { nullable: true })
   birthDate?: Date;
 
-  @Column()
+  @Column('varchar', { length: 200, nullable: true })
   bio?: string;
 }

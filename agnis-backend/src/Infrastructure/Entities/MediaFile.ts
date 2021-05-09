@@ -5,9 +5,9 @@ export class MediaFile {
   @PrimaryGeneratedColumn('uuid')
   id!: string;
 
-  @Column('time with time zone')
+  @Column('time with time zone', { nullable: false })
   createdAt!: Date;
 
-  @Column()
+  @Column({ nullable: true })
   name?: string;
 }

@@ -1,10 +1,12 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, ManyToOne } from 'typeorm';
+import { Permission } from './Permission';
+import { Role } from './Role';
 
 @Entity()
 export class RolePermissionLink {
-  @PrimaryGeneratedColumn('uuid')
-  roleId!: string;
+  @ManyToOne(() => Role, { primary: true, nullable: false })
+  role!: Role;
 
-  @Column('uuid')
-  permissionId!: string;
+  @ManyToOne(() => Permission, { primary: true, nullable: false })
+  permission!: Permission;
 }

@@ -1,16 +1,17 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { Blog } from './Blog';
 
 @Entity()
 export class Post {
   @PrimaryGeneratedColumn('uuid')
   id!: string;
 
-  @Column('text')
-  content?: string;
+  @Column('text', { nullable: false })
+  content!: string;
 
-  @Column('uuid')
-  blogId!: string;
+  @ManyToOne(() => Blog, { nullable: false })
+  blog!: Blog;
 
-  @Column('varchar', { length: 20, array: true })
+  @Column('varchar', { length: 20, array: true, nullable: true })
   tags?: string[];
 }

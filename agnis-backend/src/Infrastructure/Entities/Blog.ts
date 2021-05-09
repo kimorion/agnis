@@ -1,10 +1,14 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { User } from './User';
 
 @Entity()
 export class Blog {
   @PrimaryGeneratedColumn('uuid')
   id!: string;
 
-  @Column('uuid')
-  userId!: string;
+  @ManyToOne(() => User, { nullable: false })
+  user!: User;
+
+  @Column('varchar', { length: 200, nullable: true })
+  name?: string;
 }

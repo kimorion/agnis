@@ -1,16 +1,17 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { User } from './User';
 
 @Entity()
 export class Message {
   @PrimaryGeneratedColumn('uuid')
   id!: string;
 
-  @Column('text')
-  content?: string;
+  @Column('text', { nullable: false })
+  content!: string;
 
-  @Column('uuid')
-  fromUserId!: string;
+  @ManyToOne(() => User, { nullable: false })
+  fromUser!: User;
 
-  @Column('uuid')
-  toUserId!: string;
+  @ManyToOne(() => User, { nullable: false })
+  toUser!: User;
 }

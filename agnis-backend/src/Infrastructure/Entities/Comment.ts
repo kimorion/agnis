@@ -1,17 +1,19 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { User } from './User';
+import { Post } from './Post';
 
 @Entity()
 export class Comment {
   @PrimaryGeneratedColumn('uuid')
   id!: string;
 
-  @Column('uuid')
-  userId!: string;
+  @ManyToOne(() => User, { nullable: false })
+  user!: User;
 
-  @Column('uuid')
-  postId!: string;
+  @ManyToOne(() => Post, { nullable: false })
+  post!: Post;
 
-  @Column('varchar', { length: 20 })
+  @Column('varchar', { length: 20, nullable: false })
   evaluation!: Evaluation;
 }
 

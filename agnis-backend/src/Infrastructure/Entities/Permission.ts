@@ -5,6 +5,6 @@ export class Permission {
   @PrimaryGeneratedColumn('uuid')
   id!: string;
 
-  @Column('text')
+  @Column('text', { nullable: false })
   name!: string;
 }
