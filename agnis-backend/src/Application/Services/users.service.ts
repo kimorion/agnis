@@ -25,13 +25,9 @@ export class UsersService {
   }
 
   async add(request: UserDto): Promise<string> {
-    const user: User = {
-      id: v4(),
-      firstName: request.firstName,
-      lastName: request.lastName,
-      bio: request.bio,
-      birthDate: request.birthDate,
-    };
+    const user: User = { id: v4(), ...request };
+    user.id = v4();
+
     await this.usersRepository.save(user);
     return user.id;
   }

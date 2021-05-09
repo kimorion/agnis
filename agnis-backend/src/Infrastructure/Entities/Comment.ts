@@ -15,9 +15,12 @@ export class Comment {
 
   @Column('varchar', { length: 20, nullable: false })
   evaluation!: Evaluation;
+
+  @Column('text', { nullable: false })
+  content!: string;
 }
 
-enum Evaluation {
+export enum Evaluation {
   Negative,
   Neutral,
   Positive,

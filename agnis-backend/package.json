@@ -22,11 +22,15 @@
     "typeorm": "node --require ts-node/register ./node_modules/typeorm/cli.js"
   },
   "dependencies": {
+    "@automapper/classes": "^3.5.2",
+    "@automapper/core": "^3.5.2",
+    "@automapper/nestjs": "^3.5.2",
     "@nestjs/common": "^7.6.15",
     "@nestjs/core": "^7.6.15",
     "@nestjs/platform-express": "^7.6.15",
     "@nestjs/swagger": "^4.8.0",
     "@nestjs/typeorm": "^7.1.5",
+    "class-transformer": "^0.4.0",
     "class-validator": "^0.13.1",
     "pg": "^8.6.0",
     "reflect-metadata": "^0.1.13",
@@ -38,6 +42,7 @@
     "uuid": "^8.3.2"
   },
   "devDependencies": {
+    "@automapper/types": "^3.5.2",
     "@nestjs/cli": "^7.6.0",
     "@nestjs/schematics": "^7.3.0",
     "@nestjs/testing": "^7.6.15",
