@@ -1,7 +1,7 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
-import { INestApplication } from '@nestjs/common';
+import { INestApplication, ValidationPipe } from '@nestjs/common';
 
 function configureSwagger(app: INestApplication) {
   const config = new DocumentBuilder()
@@ -15,9 +15,8 @@ function configureSwagger(app: INestApplication) {
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-
   configureSwagger(app);
-
+  app.useGlobalPipes(new ValidationPipe());
   await app.listen(5000);
 }
 

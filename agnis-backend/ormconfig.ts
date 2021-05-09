@@ -1,6 +1,7 @@
 import { SnakeNamingStrategy } from 'typeorm-naming-strategies';
+import { ConnectionOptions } from 'typeorm';
 
-module.exports = {
+const config: ConnectionOptions = {
   type: 'postgres',
   host: 'localhost',
   port: 5432,
@@ -8,11 +9,13 @@ module.exports = {
   password: 'postgres',
   database: 'agnis',
   synchronize: false,
-  entities: ['src/Infrastructure/Entities/**/*.{js,ts}'],
-  migrations: ['src/Infrastructure/Migrations/*.{js,ts}'],
+  entities: ['dist/src/Infrastructure/Entities/**/*.{js,ts}'],
+  migrations: ['dist/src/Infrastructure/Migrations/*.{js,ts}'],
   cli: {
     entitiesDir: 'src/Infrastructure/Entities',
     migrationsDir: 'src/Infrastructure/Migrations',
   },
   namingStrategy: new SnakeNamingStrategy(),
 };
+
+export = config;
