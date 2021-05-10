@@ -1,26 +1,7 @@
 import { Injectable } from '@nestjs/common';
-import { CreateMediaFileDto } from './dto/create-media-file.dto';
-import { UpdateMediaFileDto } from './dto/update-media-file.dto';
+import { EntityService } from '../../../Infrastructure/Utils/EntityService';
+import { MediaFile } from '../../../Infrastructure/Entities/MediaFile';
 
 @Injectable()
-export class MediaFilesService {
-  create(createMediaFileDto: CreateMediaFileDto) {
-    return 'This action adds a new mediaFile';
-  }
-
-  findAll() {
-    return `This action returns all mediaFiles`;
-  }
-
-  findOne(id: number) {
-    return `This action returns a #${id} mediaFile`;
-  }
-
-  update(id: number, updateMediaFileDto: UpdateMediaFileDto) {
-    return `This action updates a #${id} mediaFile`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} mediaFile`;
-  }
+export class MediaFilesService extends EntityService<MediaFile> {
 }

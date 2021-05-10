@@ -4,6 +4,7 @@ import {
   Delete,
   Get,
   Param,
+  ParseUUIDPipe,
   Patch,
   Post,
 } from '@nestjs/common';
@@ -28,20 +29,20 @@ export class MediaFilesController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.mediaFilesService.findOne(+id);
+  findOne(@Param('id', ParseUUIDPipe) id: string) {
+    return this.mediaFilesService.findOne(id);
   }
 
   @Patch(':id')
   update(
-    @Param('id') id: string,
+    @Param('id', ParseUUIDPipe) id: string,
     @Body() updateMediaFileDto: UpdateMediaFileDto,
   ) {
-    return this.mediaFilesService.update(+id, updateMediaFileDto);
+    return this.mediaFilesService.update(id, updateMediaFileDto);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.mediaFilesService.remove(+id);
+  remove(@Param('id', ParseUUIDPipe) id: string) {
+    return this.mediaFilesService.remove(id);
   }
 }

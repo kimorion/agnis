@@ -1,6 +1,5 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { UsersService } from './Application/Services/users.service';
 import * as ormconfig from './../ormconfig';
 import { User } from './Infrastructure/Entities/User';
 import { AutomapperModule } from '@automapper/nestjs';
@@ -22,6 +21,7 @@ import { MessagesService } from './Presentation/Controllers/messages/messages.se
 import { MediaFilesService } from './Presentation/Controllers/media-files/media-files.service';
 import { CommentService } from './Presentation/Controllers/comment/comment.service';
 import { BlogsService } from './Presentation/Controllers/blogs/blogs.service';
+import { UsersService } from './Presentation/Controllers/users/users.service';
 
 @Module({
   imports: [
