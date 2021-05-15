@@ -1,1 +1,30 @@
-<p>register works!</p>
+<form [formGroup]='form' (ngSubmit)='onSubmit()'>
+  <fieldset>
+    <h2 class='form_header'>Регистрация нового пользователя</h2>
+    <div class='inputs'>
+      <input
+        type='text'
+        placeholder='Логин'
+        formControlName='login'
+      />
+      <!--      <input-->
+      <!--        type='text'-->
+      <!--        placeholder='Электронная почта'-->
+      <!--        formControlName='email'-->
+      <!--      />-->
+      <!--      <input-->
+      <!--        type='password'-->
+      <!--        placeholder='Пароль'-->
+      <!--        formControlName='password'-->
+      <!--      />-->
+    </div>
+
+    <button
+      class='submit-button'
+      type='submit'
+      [disabled]='isSubmitting$ | async'>
+      <!--      [disabled]="isSubmitting$ | async"-->
+      Регистрация
+    </button>
+  </fieldset>
+</form>

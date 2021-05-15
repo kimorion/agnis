@@ -1,17 +1,19 @@
 import { Allow, IsNotEmpty, IsString } from 'class-validator';
 
 export class CreateUserDto {
-  @IsNotEmpty()
-  @IsString()
+  @Allow()
   firstName!: string;
+
+  @Allow()
+  lastName!: string;
 
   @IsNotEmpty()
   @IsString()
-  lastName!: string;
+  login!: string;
 
   @Allow()
   birthDate?: Date;
 
-  @IsString()
+  @Allow()
   bio?: string;
 }
