@@ -1,20 +1,20 @@
 import { createAction, props } from '@ngrx/store';
 import { ActionTypes } from '../actionTypes';
 import { UserDataInterface } from '../../../shared/types/userDataInterface';
-import { UserRequestInterface } from '../../types/userRequest.interface';
 import { BackendErrorsInterface } from '../../../shared/types/backendErrors.interface';
+import { LoginRequestInterface } from '../../types/loginRequest.interface';
 
-export const registerAction = createAction(
-  ActionTypes.REGISTER,
-  props<{ request: UserRequestInterface }>(),
+export const loginAction = createAction(
+  ActionTypes.LOGIN,
+  props<{ request: LoginRequestInterface }>(),
 );
 
-export const registerSuccessAction = createAction(
-  ActionTypes.REGISTER_SUCCESS,
+export const loginSuccessAction = createAction(
+  ActionTypes.LOGIN_SUCCESS,
   props<{ user: UserDataInterface }>(),
 );
 
-export const registerFailAction = createAction(
-  ActionTypes.REGISTER_FAILURE,
+export const loginFailAction = createAction(
+  ActionTypes.LOGIN_FAILURE,
   props<{ errors: BackendErrorsInterface }>(),
 );

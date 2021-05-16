@@ -1,4 +1,4 @@
-export interface UserResponseInterface {
+export interface UserDataInterface {
   id: string;
   login: string;
   firstName: string | null;

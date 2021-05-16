@@ -1,6 +1,6 @@
 <form [formGroup]='form' (ngSubmit)='onSubmit()'>
   <fieldset>
-    <h2>Регистрация нового пользователя</h2>
+    <h2>Вход</h2>
 
     <mat-form-field>
       <mat-label>Логин</mat-label>
@@ -22,7 +22,7 @@
       <button mat-button color='primary'
               type='submit'
               [disabled]='(isSubmitting$ | async)'>
-        Регистрация
+        Войти
       </button>
 
     </div>

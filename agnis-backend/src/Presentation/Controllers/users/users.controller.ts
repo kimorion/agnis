@@ -12,6 +12,7 @@ import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { ApiTags } from '@nestjs/swagger';
+import { LoginDto } from './dto/login.dto';
 
 @Controller('users')
 @ApiTags('users')
@@ -31,6 +32,11 @@ export class UsersController {
   @Get(':id')
   findOne(@Param('id', ParseUUIDPipe) id: string) {
     return this.usersService.findOne(id);
+  }
+
+  @Post('login')
+  findOneByLogin(@Body() loginDto: LoginDto) {
+    return this.usersService.login(loginDto.login);
   }
 
   @Patch(':id')

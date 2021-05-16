@@ -1,6 +1,26 @@
-/* You can add global styles to this file, and also import other style files */
-
-* {
-  font-family: 'PT Sans', sans-serif !important;
-
+html, body {
+  height: 100%;
 }
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+button {
+  border-radius: 17px;
+  box-shadow: 0 8px 10px -5px rgb(0 0 200 / 50%);
+
+  &:active {
+    position: relative;
+    top: 3px;
+    box-shadow: 0 8px 10px -5px rgb(0 0 200 / 50%);
+  }
+}
+
+fieldset {
+  border: none;
+  border-radius: 17px;
+  box-shadow: 0 10px 25px -2px rgb(0 0 200 / 25%);
+}
+

@@ -1,18 +1,13 @@
-import { BadRequestException, NotFoundException } from '@nestjs/common';
+import { NotFoundException } from '@nestjs/common';
 import { DeepPartial, Repository } from 'typeorm';
 import { QueryDeepPartialEntity } from 'typeorm/query-builder/QueryPartialEntity';
 
-const PG_UNIQUE_CONSTRAINT_VIOLATION = '23505';
-
 export class EntityService<TEntity> {
-  constructor(protected readonly repository: Repository<TEntity>) {}
+  constructor(protected readonly repository: Repository<TEntity>) {
+  }
 
   async create(entity: DeepPartial<TEntity>) {
-    return await this.repository.save(entity).catch((err) => {
-      if (err.code === PG_UNIQUE_CONSTRAINT_VIOLATION)
-        throw new BadRequestException(err);
-      throw err;
-    });
+    return await this.repository.save(entity);
   }
 
   async findAll() {

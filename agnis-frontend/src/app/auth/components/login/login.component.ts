@@ -1,21 +1,22 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { select, Store } from '@ngrx/store';
-import { registerAction } from '../../store/Actions/register.action';
 import { Observable } from 'rxjs';
+import { BackendErrorsInterface } from '../../../shared/types/backendErrors.interface';
+import { select, Store } from '@ngrx/store';
+import { AppStateInterface } from '../../../shared/types/appState.interface';
 import {
   isSubmittingSelector,
   validationErrorsSelector,
 } from '../../store/selectors';
-import { AppStateInterface } from '../../../shared/types/appState.interface';
-import { BackendErrorsInterface } from '../../../shared/types/backendErrors.interface';
+import { registerAction } from '../../store/Actions/register.action';
+import { loginAction } from '../../store/Actions/login.action';
 
 @Component({
-  selector: 'app-register',
-  templateUrl: './register.component.html',
-  styleUrls: ['./register.component.scss'],
+  selector: 'app-login',
+  templateUrl: './login.component.html',
+  styleUrls: ['./login.component.scss'],
 })
-export class RegisterComponent implements OnInit {
+export class LoginComponent implements OnInit {
   form: FormGroup;
   isSubmitting$: Observable<boolean>;
   validationErrors$: Observable<BackendErrorsInterface | null>;
@@ -33,6 +34,6 @@ export class RegisterComponent implements OnInit {
 
   onSubmit(): void {
     if (this.form.valid)
-      this.store.dispatch(registerAction({ request: this.form.value }));
+      this.store.dispatch(loginAction({ request: this.form.value }));
   }
 }
