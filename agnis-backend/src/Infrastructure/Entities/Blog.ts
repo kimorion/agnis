@@ -9,6 +9,6 @@ export class Blog {
   @ManyToOne(() => User, { nullable: false })
   user!: User;
 
-  @Column('varchar', { length: 200, nullable: true })
+  @Column('varchar', { length: 200, nullable: true, unique: true })
   name?: string;
 }

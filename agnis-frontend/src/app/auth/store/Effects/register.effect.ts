@@ -7,12 +7,12 @@ import {
 } from '../Actions/register.action';
 import { catchError, map, switchMap, tap } from 'rxjs/operators';
 import { AuthService } from '../../services/auth.service';
-import { UserDataInterface } from '../../../shared/types/userDataInterface';
+import { UserDataInterface } from '../../../shared/types/userData.interface';
 import { of } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
 import { PersistenceService } from '../../../shared/services/PersistenceService';
 import { Router } from '@angular/router';
-import { loginAction, loginSuccessAction } from '../Actions/login.action';
+import { loginAction, loginFailAction, loginSuccessAction } from '../Actions/login.action';
 
 @Injectable()
 export class RegisterEffect {
@@ -22,7 +22,10 @@ export class RegisterEffect {
       switchMap(({ request }) => {
         return this.authService.register(request).pipe(
           map((userResponse: UserDataInterface) => {
-            this.persistenceService.set('currentUserId', userResponse.id);
+            this.persistenceService.set(
+              PersistenceService.USER_INFO_KEY,
+              userResponse,
+            );
             return registerSuccessAction({ user: userResponse });
           }),
           catchError((errorResponse: HttpErrorResponse) => {
@@ -50,11 +53,14 @@ export class RegisterEffect {
       switchMap(({ request }) => {
         return this.authService.login(request).pipe(
           map((userResponse: UserDataInterface) => {
-            this.persistenceService.set('currentUserId', userResponse.id);
+            this.persistenceService.set(
+              PersistenceService.USER_INFO_KEY,
+              userResponse,
+            );
             return loginSuccessAction({ user: userResponse });
           }),
           catchError((errorResponse: HttpErrorResponse) => {
-            return of(registerFailAction({ errors: errorResponse.error }));
+            return of(loginFailAction({ errors: errorResponse.error }));
           }),
         );
       }),

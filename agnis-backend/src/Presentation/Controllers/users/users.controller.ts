@@ -13,11 +13,15 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { ApiTags } from '@nestjs/swagger';
 import { LoginDto } from './dto/login.dto';
+import { BlogsService } from '../blogs/blogs.service';
 
 @Controller('users')
 @ApiTags('users')
 export class UsersController {
-  constructor(private readonly usersService: UsersService) {}
+  constructor(
+    private readonly usersService: UsersService,
+    private readonly blogService: BlogsService,
+  ) {}
 
   @Post()
   create(@Body() createUserDto: CreateUserDto) {
@@ -32,6 +36,12 @@ export class UsersController {
   @Get(':id')
   findOne(@Param('id', ParseUUIDPipe) id: string) {
     return this.usersService.findOne(id);
+  }
+
+  @Get(':id/blogs')
+  async findUserBlogs(@Param('id', ParseUUIDPipe) id: string) {
+    let blogs = await this.blogService.findByUserId(id);
+    return { items: blogs };
   }
 
   @Post('login')

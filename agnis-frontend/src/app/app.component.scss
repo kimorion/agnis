@@ -1,5 +1,11 @@
 
 .main-wrapper {
-  margin: 0 auto;
-  max-width: 800px;
+  margin: 5em auto;
+  max-width: 70ch;
+}
+
+@media (max-width: 400px) {
+  .main-wrapper {
+    margin: 14em auto;
+  }
 }

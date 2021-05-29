@@ -13,7 +13,9 @@ import { BackendErrorsMessagesModule } from './shared/modules/backendErrorsMessa
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSliderModule } from '@angular/material/slider';
-import { PersistenceService } from './shared/services/PersistenceService';
+import { NavbarModule } from './shared/modules/navbar/navbar.module.';
+import { BlogModule } from './blog/blog.module';
+import { AppEffect } from './shared/store/Effects/app.effect';
 
 @NgModule({
   declarations: [AppComponent],
@@ -21,10 +23,12 @@ import { PersistenceService } from './shared/services/PersistenceService';
     BrowserModule,
     AppRoutingModule,
     AuthModule,
+    NavbarModule,
+    BlogModule,
     BackendErrorsMessagesModule,
-    StoreModule.forRoot({}),
+    StoreModule.forRoot([]),
     HttpClientModule,
-    EffectsModule.forRoot([]),
+    EffectsModule.forRoot([AppEffect]),
     MatFormFieldModule,
     MatSliderModule,
     StoreDevtoolsModule.instrument({

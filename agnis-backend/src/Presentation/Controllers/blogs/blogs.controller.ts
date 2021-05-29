@@ -20,7 +20,10 @@ export class BlogsController {
 
   @Post()
   create(@Body() createBlogDto: CreateBlogDto) {
-    return this.blogsService.create(createBlogDto);
+    return this.blogsService.create({
+      name: createBlogDto.blogName,
+      user: { id: createBlogDto.userId },
+    });
   }
 
   @Get()

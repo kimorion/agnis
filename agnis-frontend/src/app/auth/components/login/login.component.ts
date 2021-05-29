@@ -6,7 +6,7 @@ import { select, Store } from '@ngrx/store';
 import { AppStateInterface } from '../../../shared/types/appState.interface';
 import {
   isSubmittingSelector,
-  validationErrorsSelector,
+  loginValidationErrorsSelector,
 } from '../../store/selectors';
 import { registerAction } from '../../store/Actions/register.action';
 import { loginAction } from '../../store/Actions/login.action';
@@ -27,7 +27,7 @@ export class LoginComponent implements OnInit {
     });
 
     this.isSubmitting$ = this.store.pipe(select(isSubmittingSelector));
-    this.validationErrors$ = this.store.pipe(select(validationErrorsSelector));
+    this.validationErrors$ = this.store.pipe(select(loginValidationErrorsSelector));
   }
 
   ngOnInit(): void {}

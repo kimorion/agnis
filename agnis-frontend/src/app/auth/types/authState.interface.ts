@@ -1,8 +1,9 @@
-import { UserDataInterface } from '../../shared/types/userDataInterface';
+import { UserDataInterface } from '../../shared/types/userData.interface';
 import { BackendErrorsInterface } from '../../shared/types/backendErrors.interface';
 
 export interface AuthStateInterface {
   isSubmitting: boolean;
   currentUser: UserDataInterface | null;
-  validationErrors: BackendErrorsInterface | null;
+  loginValidationErrors: BackendErrorsInterface | null;
+  registerValidationErrors: BackendErrorsInterface | null;
 }

@@ -5,7 +5,7 @@ import { registerAction } from '../../store/Actions/register.action';
 import { Observable } from 'rxjs';
 import {
   isSubmittingSelector,
-  validationErrorsSelector,
+  loginValidationErrorsSelector, registerValidationErrorsSelector,
 } from '../../store/selectors';
 import { AppStateInterface } from '../../../shared/types/appState.interface';
 import { BackendErrorsInterface } from '../../../shared/types/backendErrors.interface';
@@ -26,7 +26,7 @@ export class RegisterComponent implements OnInit {
     });
 
     this.isSubmitting$ = this.store.pipe(select(isSubmittingSelector));
-    this.validationErrors$ = this.store.pipe(select(validationErrorsSelector));
+    this.validationErrors$ = this.store.pipe(select(registerValidationErrorsSelector));
   }
 
   ngOnInit(): void {}

@@ -10,7 +10,8 @@ import { loginAction, loginFailAction, loginSuccessAction } from './Actions/logi
 const initialState: AuthStateInterface = {
   isSubmitting: false,
   currentUser: null,
-  validationErrors: null,
+  loginValidationErrors: null,
+  registerValidationErrors: null,
 };
 
 const authReducer = createReducer(
@@ -20,7 +21,7 @@ const authReducer = createReducer(
     (state): AuthStateInterface => ({
       ...state,
       isSubmitting: true,
-      validationErrors: null,
+      loginValidationErrors: null,
     }),
   ),
   on(
@@ -36,7 +37,7 @@ const authReducer = createReducer(
     (state, action): AuthStateInterface => ({
       ...state,
       isSubmitting: false,
-      validationErrors: action.errors
+      registerValidationErrors: action.errors
     }),
   ),
   on(
@@ -44,7 +45,7 @@ const authReducer = createReducer(
     (state): AuthStateInterface => ({
       ...state,
       isSubmitting: true,
-      validationErrors: null,
+      loginValidationErrors: null,
     }),
   ),
   on(
@@ -60,7 +61,7 @@ const authReducer = createReducer(
     (state, action): AuthStateInterface => ({
       ...state,
       isSubmitting: false,
-      validationErrors: action.errors
+      loginValidationErrors: action.errors
     }),
   ),
 );

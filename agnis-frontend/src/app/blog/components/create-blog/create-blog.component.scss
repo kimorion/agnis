@@ -1,0 +1,50 @@
+$base_height: 30px;
+$base_border_radius: 17px;
+
+form {
+  margin: 2em auto;
+  display: block;
+
+
+  h2 {
+    text-align: center;
+  }
+
+  fieldset {
+    padding: 1.2em;
+
+    mat-form-field {
+      border: none;
+      box-sizing: border-box;
+      display: block;
+      text-align: center;
+      width: 100%;
+    }
+
+    .bottom_panel {
+      margin: 2em 0 0 0;
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-end;
+      align-items: center;
+
+      app-backend-errors-messages {
+        display: inline-block;
+      }
+
+      button {
+        min-width: fit-content;
+        text-wrap: normal;
+
+        .blogNameOnButton {
+          padding-left: 0.25em;
+          font-weight: lighter;
+          color: blueviolet;
+        }
+      }
+
+    }
+  }
+}
+
+

@@ -22,11 +22,12 @@ import { MediaFilesService } from './Presentation/Controllers/media-files/media-
 import { CommentService } from './Presentation/Controllers/comment/comment.service';
 import { BlogsService } from './Presentation/Controllers/blogs/blogs.service';
 import { UsersService } from './Presentation/Controllers/users/users.service';
+import { Blog } from './Infrastructure/Entities/Blog';
 
 @Module({
   imports: [
     TypeOrmModule.forRoot(ormconfig),
-    TypeOrmModule.forFeature([User]),
+    TypeOrmModule.forFeature([User, Blog]),
     AutomapperModule.forRoot({
       options: [{ name: 'Mapper', pluginInitializer: classes }],
     }),

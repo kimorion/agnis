@@ -2,8 +2,8 @@ import { IsNotEmpty, IsUUID } from 'class-validator';
 
 export class CreateBlogDto {
   @IsUUID()
-  user_id!: string;
+  userId!: string;
 
   @IsNotEmpty()
-  name!: string;
+  blogName!: string;
 }

@@ -16,7 +16,12 @@ export const isSubmittingSelector = createSelector(
   (state: AuthStateInterface) => state.isSubmitting,
 );
 
-export const validationErrorsSelector = createSelector(
+export const loginValidationErrorsSelector = createSelector(
   authFeatureSelector,
-  (state: AuthStateInterface) => state.validationErrors,
+  (state: AuthStateInterface) => state.loginValidationErrors,
+);
+
+export const registerValidationErrorsSelector = createSelector(
+  authFeatureSelector,
+  (state: AuthStateInterface) => state.registerValidationErrors,
 );

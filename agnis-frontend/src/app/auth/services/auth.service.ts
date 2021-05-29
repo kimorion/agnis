@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { UserRequestInterface } from '../types/userRequest.interface';
 import { Observable } from 'rxjs';
-import { UserDataInterface } from '../../shared/types/userDataInterface';
+import { UserDataInterface } from '../../shared/types/userData.interface';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
 import { LoginRequestInterface } from '../types/loginRequest.interface';

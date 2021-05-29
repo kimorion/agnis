@@ -1,0 +1,31 @@
+<form [formGroup]='form' (ngSubmit)='onSubmit()'>
+  <fieldset>
+    <h2>Создать блог</h2>
+
+    <mat-form-field>
+      <mat-label>Название</mat-label>
+      <input matInput required formControlName='blogName'>
+
+      <mat-error *ngIf='form.controls.blogName.invalid'>
+        Поле обязательно
+      </mat-error>
+
+    </mat-form-field>
+
+    <div class='bottom_panel'>
+
+      <app-backend-errors-messages
+        *ngIf='(validationErrors$ | async)' [backendErrorsProps]='(validationErrors$ | async)'
+      ></app-backend-errors-messages>
+
+      <button
+        mat-button color='primary' type='submit' [disabled]='(isSubmitting$ | async)'
+      >
+        <span>Создать блог</span>
+      </button>
+
+    </div>
+
+  </fieldset>
+</form>
+

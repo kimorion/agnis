@@ -33,5 +33,6 @@ const routes: Routes = [
     MatInputModule,
     MatButtonModule,
   ],
+  exports: [LoginComponent, RegisterComponent],
 })
 export class AuthModule {}

@@ -1,8 +1,13 @@
 import { createAction, props } from '@ngrx/store';
-import { ActionTypes } from '../actionTypes';
-import { UserDataInterface } from '../../../shared/types/userDataInterface';
+import { UserDataInterface } from '../../../shared/types/userData.interface';
 import { UserRequestInterface } from '../../types/userRequest.interface';
 import { BackendErrorsInterface } from '../../../shared/types/backendErrors.interface';
+
+export enum ActionTypes {
+  REGISTER = '[Auth] Register',
+  REGISTER_SUCCESS = '[Auth] Register success',
+  REGISTER_FAILURE = '[Auth] Register failure',
+}
 
 export const registerAction = createAction(
   ActionTypes.REGISTER,
