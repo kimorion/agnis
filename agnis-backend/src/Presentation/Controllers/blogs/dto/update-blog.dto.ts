@@ -1,6 +1,6 @@
 import { PartialType } from '@nestjs/mapped-types';
 import { CreateBlogDto } from './create-blog.dto';
-import { IsNotEmpty, IsUUID } from 'class-validator';
+import { IsNotEmpty, IsUUID, MaxLength } from 'class-validator';
 
 export class UpdateBlogDto extends PartialType(CreateBlogDto) {
   @IsUUID()
@@ -8,4 +8,7 @@ export class UpdateBlogDto extends PartialType(CreateBlogDto) {
 
   @IsNotEmpty()
   name!: string;
+
+  @MaxLength(400)
+  blogDescription!: string;
 }

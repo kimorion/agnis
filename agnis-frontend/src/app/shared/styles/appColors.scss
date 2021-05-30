@@ -1,0 +1,34 @@
+$_blue: royalblue;
+$_indigo: #6610f2;
+$_purple: #6f42c1;
+$_pink: rgba(255, 138, 188, 0.24);
+$_red: #dc3545;
+$_orange: #fd7e14;
+$_yellow: #ffde91;
+$_green: #28a745;
+$_teal: #20c997;
+$_cyan: #d2f6ff;
+$_white: #fff;
+$_gray-100: #f8f9fa;
+$_gray-200: #e9ecef;
+$_gray-300: #dee2e6;
+$_gray-400: #ced4da;
+$_gray-500: #adb5bd;
+$_gray-600: #868e96;
+$_gray-700: #495057;
+$_gray-800: #343a40;
+$_gray-900: #212529;
+$_black: #5074ff;
+
+
+$primary: $_blue;
+$primary-shadow: rgb(0 0 200 / 45%);
+$secondary: $_black;
+$secondary-shadow: rgb(0 0 200 / 35%);
+$success: $_green;
+$info: $_yellow;
+$warning: $_yellow;
+$danger: $_red;
+$light: $_gray-100;
+$dark: $_gray-800;
+$background: $_white;

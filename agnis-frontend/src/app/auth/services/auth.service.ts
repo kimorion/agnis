@@ -5,6 +5,7 @@ import { UserDataInterface } from '../../shared/types/userData.interface';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
 import { LoginRequestInterface } from '../types/loginRequest.interface';
+import { select } from '@ngrx/store';
 
 @Injectable({
   providedIn: 'root',
@@ -24,5 +25,11 @@ export class AuthService {
       environment.URLS.apiHostUrl + environment.URLS.loginPath,
       request,
     );
+  }
+
+  getCurrentUser(): Observable<UserDataInterface> {
+    return this.http
+      .get<UserDataInterface>(environment.URLS.apiHostUrl + environment.URLS.currentUserPath)
+      .pipe(select((e) => e));
   }
 }

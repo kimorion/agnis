@@ -7,10 +7,12 @@ import { Router } from '@angular/router';
 import { PersistenceService } from '../../../shared/services/PersistenceService';
 import { BlogDataInterface } from '../../types/blogData.interface';
 import {
-  BlogCreateSuccessAction,
   BlogCreateFailAction,
   BlogCreateStartAction,
+  BlogCreateSuccessAction,
+  UserBlogsFetchFailAction,
   UserBlogsFetchStartAction,
+  UserBlogsFetchSuccessAction,
 } from '../Actions/blog.action';
 import { BlogDataListInterface } from '../../types/blogDataList.interface';
 
@@ -28,17 +30,19 @@ export class blogEffect {
     ),
   );
 
-  // fetchBlogs$ = createEffect(() =>
-  //   this.actions$.pipe(
-  //     ofType(fetchUserBlogsAction),
-  //     switchMap(({ userId }) =>
-  //       this.blogService.getUserBlogs(userId).pipe(
-  //         map((response: BlogDataListInterface) => blogFetchedAction({ blog: response })),
-  //         catchError((e) => of(blogErrorAction({ errors: e.error }))),
-  //       ),
-  //     ),
-  //   ),
-  // );
+  fetchBlogs$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(UserBlogsFetchStartAction),
+      switchMap(({ userId }) =>
+        this.blogService.getUserBlogs(userId).pipe(
+          map((response: BlogDataListInterface) =>
+            UserBlogsFetchSuccessAction({ blogs: response }),
+          ),
+          catchError((e) => of(UserBlogsFetchFailAction({ errors: e.error }))),
+        ),
+      ),
+    ),
+  );
 
   constructor(
     private actions$: Actions,

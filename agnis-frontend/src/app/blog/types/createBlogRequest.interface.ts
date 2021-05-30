@@ -1,4 +1,4 @@
 export interface CreateBlogRequestInterface {
   blogName: string;
-  userId: string;
+  description: string;
 }

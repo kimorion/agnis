@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import * as ormconfig from './../ormconfig';
 import { User } from './Infrastructure/Entities/User';
@@ -23,6 +23,8 @@ import { CommentService } from './Presentation/Controllers/comment/comment.servi
 import { BlogsService } from './Presentation/Controllers/blogs/blogs.service';
 import { UsersService } from './Presentation/Controllers/users/users.service';
 import { Blog } from './Infrastructure/Entities/Blog';
+import { CurrentUserService } from './Application/Services/currentUser.service';
+import { AuthorizationMiddleware } from './Application/Middleware/authorizationMiddleware.service';
 
 @Module({
   imports: [
@@ -53,7 +55,17 @@ import { Blog } from './Infrastructure/Entities/Blog';
     MediaFilesService,
     CommentService,
     BlogsService,
+    CurrentUserService,
+    // {
+    //   provide: 'root',
+    //   useClass: CurrentUserService,
+    //   scope: Scope.TRANSIENT,
+    // },
   ],
   exports: [],
 })
-export class AppModule {}
+export class AppModule implements NestModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer.apply(AuthorizationMiddleware).forRoutes('/');
+  }
+}

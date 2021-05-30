@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 
 @Injectable()
 export class PersistenceService {
-  public static readonly USER_INFO_KEY = 'currentUserInfo';
+  public static readonly USER_ID_KEY = 'currentUserId';
 
   set(key: string, data: any): void {
     try {

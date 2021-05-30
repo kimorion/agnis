@@ -1,1 +1,10 @@
-<p>blog-card works!</p>
+<div class='app-card'>
+
+  <div class='blogNameWrapper'>
+    <h2>
+      {{blogInfo?.name}}
+    </h2>
+  </div>
+
+  <div class='descriptionWrapper' *ngIf='blogInfo?.description' ><span class='description'>{{blogInfo?.description}}</span></div>
+</div>

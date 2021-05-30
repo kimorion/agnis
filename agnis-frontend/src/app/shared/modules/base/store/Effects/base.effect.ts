@@ -16,7 +16,6 @@ export class BaseEffect {
       switchMap(({}) => {
         return this.baseService.doSomething().pipe(
           map((response: Object) => {
-            console.log(response);
             return baseErrorAction;
           }),
           catchError(() => {

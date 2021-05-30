@@ -4,6 +4,6 @@ import { BlogStateInterface } from '../../blog/types/blogState.interface';
 
 export interface AppStateInterface {
   auth: AuthStateInterface;
-  base: BaseStateInterface;
   blog: BlogStateInterface;
+  base: BaseStateInterface;
 }

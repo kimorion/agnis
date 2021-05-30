@@ -2,18 +2,35 @@
   <nav class='navbar navbar-fixed-top navbar-dark bg-inverse'>
     <div class='flex-container'>
       <a
-        mat-button class='nav-link' routerLink='/home' [routerLinkActive]="'active'"
+        mat-button class='nav-link' routerLink='/feed' [routerLinkActive]="'active'"
       >Главная</a>
       <a
-        mat-button class='nav-link' routerLink='/navbar' [routerLinkActive]="'active'"
+        mat-button class='nav-link' routerLink='/messages' [routerLinkActive]="'active'"
       >Сообщения</a>
       <a
-        mat-button class='nav-link' routerLink='/profile' [routerLinkActive]="'active'"
-      >Профиль</a>
-      <!--      <li class="nav-item"><a mat-button class="nav-link" routerLink="/register">Регистрация</a></li>-->
-      <!--      <li class="nav-item"><a mat-button class="nav-link" routerLink="/login">Вход</a></li>-->
-      <!--      <li class="nav-item"><a mat-button class="nav-link" routerLink="logout">Выход</a></li>-->
+        mat-button class='nav-link' routerLink='/user-blogs' [routerLinkActive]="'active'"
+      >Мои блоги</a>
+
+      <a mat-button *ngIf='!(currentUserInfo$ | async)' class='nav-link' routerLink='/register'>Регистрация</a>
+
+      <div class='user-menu' *ngIf='(currentUserInfo$ | async)'>
+        <button mat-icon-button mat-button [matMenuTriggerFor]='menu'>
+          {{(currentUserInfo$ | async)?.login || 'empty'}}
+
+          <mat-icon>more_vert</mat-icon>
+        </button>
+
+
+        <mat-menu #menu='matMenu'>
+          <a mat-menu-item class='nav-link' routerLink='/register'>Профиль</a>
+          <a mat-menu-item class='nav-link' routerLink='/settings'>Настройки</a>
+          <a mat-menu-item class='nav-link' routerLink='logout'>Выход</a>
+        </mat-menu>
+      </div>
+
+
     </div>
   </nav>
+
 
 </div>

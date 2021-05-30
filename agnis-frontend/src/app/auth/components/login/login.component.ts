@@ -4,12 +4,8 @@ import { Observable } from 'rxjs';
 import { BackendErrorsInterface } from '../../../shared/types/backendErrors.interface';
 import { select, Store } from '@ngrx/store';
 import { AppStateInterface } from '../../../shared/types/appState.interface';
-import {
-  isSubmittingSelector,
-  loginValidationErrorsSelector,
-} from '../../store/selectors';
-import { registerAction } from '../../store/Actions/register.action';
-import { loginAction } from '../../store/Actions/login.action';
+import { authAction } from '../../store/Actions/auth.action';
+import { isSubmittingSelector, loginValidationErrorsSelector } from '../../store/selectors';
 
 @Component({
   selector: 'app-login',
@@ -30,10 +26,10 @@ export class LoginComponent implements OnInit {
     this.validationErrors$ = this.store.pipe(select(loginValidationErrorsSelector));
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+  }
 
   onSubmit(): void {
-    if (this.form.valid)
-      this.store.dispatch(loginAction({ request: this.form.value }));
+    if (this.form.valid) this.store.dispatch(authAction({ request: this.form.value }));
   }
 }

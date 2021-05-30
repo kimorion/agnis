@@ -1,17 +1,25 @@
 import { AuthStateInterface } from '../types/authState.interface';
 import { Action, createReducer, on } from '@ngrx/store';
+
 import {
+  authAction,
+  getCurrentUserAction,
+  getCurrentUserFailureAction,
+  getCurrentUserSuccessAction,
+  loginFailAction,
+  loginSuccessAction,
   registerAction,
   registerFailAction,
   registerSuccessAction,
-} from './Actions/register.action';
-import { loginAction, loginFailAction, loginSuccessAction } from './Actions/login.action';
+} from './Actions/auth.action';
 
 const initialState: AuthStateInterface = {
   isSubmitting: false,
   currentUser: null,
   loginValidationErrors: null,
   registerValidationErrors: null,
+  isLoading: false,
+  isLoggedIn: false,
 };
 
 const authReducer = createReducer(
@@ -29,7 +37,7 @@ const authReducer = createReducer(
     (state, action): AuthStateInterface => ({
       ...state,
       isSubmitting: false,
-      currentUser: action.user
+      currentUser: action.user,
     }),
   ),
   on(
@@ -37,11 +45,11 @@ const authReducer = createReducer(
     (state, action): AuthStateInterface => ({
       ...state,
       isSubmitting: false,
-      registerValidationErrors: action.errors
+      registerValidationErrors: action.errors,
     }),
   ),
   on(
-    loginAction,
+    authAction,
     (state): AuthStateInterface => ({
       ...state,
       isSubmitting: true,
@@ -53,7 +61,7 @@ const authReducer = createReducer(
     (state, action): AuthStateInterface => ({
       ...state,
       isSubmitting: false,
-      currentUser: action.user
+      currentUser: action.user,
     }),
   ),
   on(
@@ -61,7 +69,32 @@ const authReducer = createReducer(
     (state, action): AuthStateInterface => ({
       ...state,
       isSubmitting: false,
-      loginValidationErrors: action.errors
+      loginValidationErrors: action.errors,
+    }),
+  ),
+  on(
+    getCurrentUserAction,
+    (state): AuthStateInterface => ({
+      ...state,
+      isLoading: true,
+    }),
+  ),
+  on(
+    getCurrentUserSuccessAction,
+    (state, action): AuthStateInterface => ({
+      ...state,
+      isLoading: false,
+      isLoggedIn: true,
+      currentUser: action.user,
+    }),
+  ),
+  on(
+    getCurrentUserFailureAction,
+    (state): AuthStateInterface => ({
+      ...state,
+      isLoading: false,
+      isLoggedIn: false,
+      currentUser: null,
     }),
   ),
 );

@@ -7,15 +7,17 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AuthModule } from './auth/auth.module';
 import { environment } from '../environments/environment';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { EffectsModule } from '@ngrx/effects';
 import { BackendErrorsMessagesModule } from './shared/modules/backendErrorsMessages/backendErrorsMessages.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSliderModule } from '@angular/material/slider';
-import { NavbarModule } from './shared/modules/navbar/navbar.module.';
+import { NavbarModule } from './shared/modules/navbar/navbar.module';
 import { BlogModule } from './blog/blog.module';
 import { AppEffect } from './shared/store/Effects/app.effect';
+import { AuthInterceptor } from './shared/services/authInterceptor.service';
+import { PersistenceService } from './shared/services/PersistenceService';
 
 @NgModule({
   declarations: [AppComponent],
@@ -37,8 +39,14 @@ import { AppEffect } from './shared/store/Effects/app.effect';
     }),
     BrowserAnimationsModule,
   ],
-  providers: [],
+  providers: [
+    PersistenceService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true,
+    },
+  ],
   bootstrap: [AppComponent],
 })
-export class AppModule {
-}
+export class AppModule {}

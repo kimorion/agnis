@@ -3,19 +3,21 @@ import { DeepPartial, Repository } from 'typeorm';
 import { QueryDeepPartialEntity } from 'typeorm/query-builder/QueryPartialEntity';
 
 export class EntityService<TEntity> {
-  constructor(protected readonly repository: Repository<TEntity>) {
-  }
+  constructor(protected readonly repository: Repository<TEntity>) {}
 
   async create(entity: DeepPartial<TEntity>) {
     return await this.repository.save(entity);
   }
 
-  async findAll() {
-    return await this.repository.find();
+  async findAll(relations: string[] | undefined = undefined) {
+    return await this.repository.find({ relations: relations });
   }
 
-  async findOne(id: string) {
-    return (await this.repository.findOne(id)) ?? new NotFoundException();
+  async findOne(id: string, relations: string[] | undefined = undefined) {
+    return (
+      (await this.repository.findOne(id, { relations: relations })) ??
+      new NotFoundException()
+    );
   }
 
   async update(id: string, entityDto: QueryDeepPartialEntity<TEntity>) {

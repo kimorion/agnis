@@ -3,7 +3,7 @@ import { Action, createReducer, on } from '@ngrx/store';
 import {
   BlogCreateSuccessAction,
   BlogCreateFailAction,
-  BlogCreateStartAction,
+  BlogCreateStartAction, UserBlogsFetchSuccessAction, UserBlogsFetchStartAction, UserBlogsFetchFailAction,
 } from './Actions/blog.action';
 
 const initialState: BlogStateInterface = {
@@ -33,6 +33,31 @@ const blogReducer = createReducer(
   ),
   on(
     BlogCreateFailAction,
+    (state, action): BlogStateInterface => ({
+      ...state,
+      isSubmitting: false,
+      validationErrors: action.errors,
+    }),
+  ),
+  on(
+    UserBlogsFetchStartAction,
+    (state): BlogStateInterface => ({
+      ...state,
+      isSubmitting: true,
+      validationErrors: null,
+    }),
+  ),
+  on(
+    UserBlogsFetchSuccessAction,
+    (state, response): BlogStateInterface => ({
+      ...state,
+      isSubmitting: false,
+      validationErrors: null,
+      currentUserBlogs: response.blogs,
+    }),
+  ),
+  on(
+    UserBlogsFetchFailAction,
     (state, action): BlogStateInterface => ({
       ...state,
       isSubmitting: false,

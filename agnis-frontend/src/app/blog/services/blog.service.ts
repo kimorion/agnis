@@ -10,8 +10,7 @@ import { BlogDataListInterface } from '../types/blogDataList.interface';
   providedIn: 'root',
 })
 export class blogService {
-  constructor(private http: HttpClient) {
-  }
+  constructor(private http: HttpClient) {}
 
   createBlog(data: CreateBlogRequestInterface): Observable<BlogDataInterface> {
     return this.http.post<BlogDataInterface>(
@@ -22,7 +21,9 @@ export class blogService {
 
   getUserBlogs(userId: string): Observable<BlogDataListInterface> {
     return this.http.get<BlogDataListInterface>(
-      environment.URLS.apiHostUrl + `/${userId}` + environment.URLS.blogPath
+      environment.URLS.apiHostUrl +
+        environment.URLS.currentUserPath +
+        environment.URLS.blogPath,
     );
   }
 }

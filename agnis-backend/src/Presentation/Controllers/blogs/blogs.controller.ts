@@ -22,13 +22,13 @@ export class BlogsController {
   create(@Body() createBlogDto: CreateBlogDto) {
     return this.blogsService.create({
       name: createBlogDto.blogName,
-      user: { id: createBlogDto.userId },
+      description: createBlogDto.blogDescription,
     });
   }
 
   @Get()
   findAll() {
-    return this.blogsService.findAll();
+    return this.blogsService.findAll(["users"]);
   }
 
   @Get(':id')

@@ -2,6 +2,7 @@ import { createAction, props } from '@ngrx/store';
 import { CreateBlogRequestInterface } from '../../types/createBlogRequest.interface';
 import { BlogDataInterface } from '../../types/blogData.interface';
 import { BackendErrorsInterface } from '../../../shared/types/backendErrors.interface';
+import { BlogDataListInterface } from '../../types/blogDataList.interface';
 
 export enum BlogActionTypes {
   BlogCreateStart = '[Blog] BlogCreateStart',
@@ -34,10 +35,10 @@ export const UserBlogsFetchStartAction = createAction(
 
 export const UserBlogsFetchSuccessAction = createAction(
   BlogActionTypes.UserBlogsFetchSuccess,
-  props<{ userId: string }>(),
+  props<{ blogs: BlogDataListInterface }>(),
 );
 
 export const UserBlogsFetchFailAction = createAction(
   BlogActionTypes.UserBlogsFetchFail,
-  props<{ userId: string }>(),
+  props<{ errors: BackendErrorsInterface }>(),
 );

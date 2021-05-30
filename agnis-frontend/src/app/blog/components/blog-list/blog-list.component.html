@@ -1,1 +1,7 @@
-<p>blog-list works!</p>
+<div *ngIf='userBlogs$ | async' class='blog-list-wrapper'>
+  <ul class='userBlogsList'>
+    <li class='userBlog' *ngFor='let item of (userBlogs$ | async)?.items;'>
+      <app-blog-card [blogInfoProp]='item'></app-blog-card>
+    </li>
+  </ul>
+</div>

@@ -5,10 +5,14 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { EntityService } from '../../../Infrastructure/Utils/EntityService';
 import { DatabaseError } from 'pg-protocol';
 import { PostgresErrorCodes } from '../../../Infrastructure/Utils/postgresErrorCodes';
+import { CurrentUserService } from '../../../Application/Services/currentUser.service';
 
 @Injectable()
 export class UsersService extends EntityService<User> {
-  constructor(@InjectRepository(User) repository: Repository<User>) {
+  constructor(
+    @InjectRepository(User) repository: Repository<User>,
+    private userService: CurrentUserService,
+  ) {
     super(repository);
   }
 
@@ -19,7 +23,7 @@ export class UsersService extends EntityService<User> {
         if (
           postgresError &&
           postgresError.code ===
-          PostgresErrorCodes.PG_UNIQUE_CONSTRAINT_VIOLATION
+            PostgresErrorCodes.PG_UNIQUE_CONSTRAINT_VIOLATION
         ) {
           throw new BadRequestException(
             'Пользователь с данным логином уже существует',

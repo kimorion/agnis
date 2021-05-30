@@ -1,0 +1,60 @@
+@use 'src/app/shared/styles/appColors' as colors;
+
+$testVariable: royalblue;
+
+.app-card-shadow {
+  border: none;
+  border-radius: 18px;
+  box-shadow: 0 0.25em 2em -0.5em colors.$secondary-shadow;
+}
+
+.app-primary-button {
+  @extend .app-card-shadow;
+  min-width: fit-content;
+
+  &:active {
+    position: relative;
+    top: 1px;
+  }
+}
+
+.app-card {
+  @extend .app-card-shadow;
+  padding: 1.5em;
+  background-color: colors.$background;
+}
+
+.app-form-bottom-panel {
+  margin: 2em 0 0 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.app-form {
+  background-color: colors.$background;
+
+  margin: 2em auto;
+  display: block;
+
+  h2 {
+    text-align: center;
+  }
+
+  fieldset {
+    @extend .app-card;
+
+    mat-form-field {
+      border: none;
+      box-sizing: border-box;
+      display: block;
+      text-align: center;
+      width: 100%;
+    }
+
+    button {
+      @extend .app-primary-button;
+    }
+  }
+}

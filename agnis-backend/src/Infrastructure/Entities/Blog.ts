@@ -11,4 +11,7 @@ export class Blog {
 
   @Column('varchar', { length: 200, nullable: true, unique: true })
   name?: string;
+
+  @Column('varchar', { length: 400, nullable: true })
+  description?: string;
 }

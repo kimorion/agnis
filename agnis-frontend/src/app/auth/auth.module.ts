@@ -7,7 +7,7 @@ import { StoreModule } from '@ngrx/store';
 import { reducers } from './store/reducers';
 import { AuthService } from './services/auth.service';
 import { EffectsModule } from '@ngrx/effects';
-import { RegisterEffect } from './store/Effects/register.effect';
+import { AuthEffect } from './store/Effects/auth.effect';
 import { BackendErrorsMessagesModule } from '../shared/modules/backendErrorsMessages/backendErrorsMessages.module';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -27,7 +27,7 @@ const routes: Routes = [
     RouterModule.forChild(routes),
     ReactiveFormsModule,
     StoreModule.forFeature('auth', reducers),
-    EffectsModule.forFeature([RegisterEffect]),
+    EffectsModule.forFeature([AuthEffect]),
     BackendErrorsMessagesModule,
     MatFormFieldModule,
     MatInputModule,

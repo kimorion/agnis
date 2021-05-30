@@ -7,6 +7,7 @@ export const environment = {
   URLS: {
     apiHostUrl: 'http://localhost:5000',
     userPath: '/users',
+    currentUserPath: '/users/current',
     loginPath: '/users/login',
     blogPath:'/blogs'
   },

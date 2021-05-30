@@ -1,4 +1,4 @@
-<form [formGroup]='form' (ngSubmit)='onSubmit()'>
+<form class='app-form' [formGroup]='form' (ngSubmit)='onSubmit()'>
   <fieldset>
     <h2>Создать блог</h2>
 
@@ -12,7 +12,17 @@
 
     </mat-form-field>
 
-    <div class='bottom_panel'>
+    <mat-form-field>
+      <mat-label>Описание</mat-label>
+      <textarea [cdkTextareaAutosize]='true' matInput formControlName='blogDescription'></textarea>
+
+      <mat-error *ngIf='form.controls.blogDescription.invalid'>
+        Максимальная длина описания - 400 символов
+      </mat-error>
+
+    </mat-form-field>
+
+    <div class='app-form-bottom-panel'>
 
       <app-backend-errors-messages
         *ngIf='(validationErrors$ | async)' [backendErrorsProps]='(validationErrors$ | async)'

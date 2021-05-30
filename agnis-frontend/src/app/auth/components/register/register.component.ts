@@ -1,14 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { select, Store } from '@ngrx/store';
-import { registerAction } from '../../store/Actions/register.action';
 import { Observable } from 'rxjs';
-import {
-  isSubmittingSelector,
-  loginValidationErrorsSelector, registerValidationErrorsSelector,
-} from '../../store/selectors';
+import { isSubmittingSelector, registerValidationErrorsSelector } from '../../store/selectors';
 import { AppStateInterface } from '../../../shared/types/appState.interface';
 import { BackendErrorsInterface } from '../../../shared/types/backendErrors.interface';
+import { registerAction } from '../../store/Actions/auth.action';
 
 @Component({
   selector: 'app-register',
@@ -29,10 +26,10 @@ export class RegisterComponent implements OnInit {
     this.validationErrors$ = this.store.pipe(select(registerValidationErrorsSelector));
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+  }
 
   onSubmit(): void {
-    if (this.form.valid)
-      this.store.dispatch(registerAction({ request: this.form.value }));
+    if (this.form.valid) this.store.dispatch(registerAction({ request: this.form.value }));
   }
 }
