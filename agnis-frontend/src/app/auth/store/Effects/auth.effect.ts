@@ -14,6 +14,7 @@ import {
   getCurrentUserSuccessAction,
   loginFailAction,
   loginSuccessAction,
+  logoutAction,
   registerAction,
   registerFailAction,
   registerSuccessAction,
@@ -80,6 +81,20 @@ export class AuthEffect {
         );
       }),
     ),
+  );
+
+  logout$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(logoutAction),
+        tap({
+          next: () => {
+            this.persistenceService.tryRemove(PersistenceService.USER_ID_KEY);
+            this.router.navigateByUrl('login');
+          },
+        }),
+      ),
+    { dispatch: false },
   );
 
   constructor(

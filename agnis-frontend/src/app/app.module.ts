@@ -18,6 +18,10 @@ import { BlogModule } from './blog/blog.module';
 import { AppEffect } from './shared/store/Effects/app.effect';
 import { AuthInterceptor } from './shared/services/authInterceptor.service';
 import { PersistenceService } from './shared/services/PersistenceService';
+import { FeedModule } from './feed/feed.module';
+import { MessagesModule } from './messages/messages.module';
+import { SettingsModule } from './settings/settings.module';
+import { UserModule } from './user/user.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -27,6 +31,10 @@ import { PersistenceService } from './shared/services/PersistenceService';
     AuthModule,
     NavbarModule,
     BlogModule,
+    FeedModule,
+    MessagesModule,
+    SettingsModule,
+    UserModule,
     BackendErrorsMessagesModule,
     StoreModule.forRoot([]),
     HttpClientModule,

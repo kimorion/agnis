@@ -11,3 +11,8 @@ export const currentUserSelector = createSelector(
   authFeatureSelector,
   (state: AuthStateInterface) => state.currentUser,
 );
+
+export const isLoggedInSelector = createSelector(
+  authFeatureSelector,
+  (state: AuthStateInterface) => state.isLoggedIn,
+);

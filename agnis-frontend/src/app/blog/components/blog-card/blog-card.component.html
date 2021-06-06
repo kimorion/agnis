@@ -6,5 +6,21 @@
     </h2>
   </div>
 
-  <div class='descriptionWrapper' *ngIf='blogInfo?.description' ><span class='description'>{{blogInfo?.description}}</span></div>
+  <div class='descriptionWrapper' *ngIf='blogInfo?.description'>
+    <span
+      class='description'
+    >
+      {{blogInfo?.description}}
+    </span>
+  </div>
+
+  <div class='buttonBox'>
+    <button mat-button (click)='onReadBlog()'>Читать</button>
+
+    <div *ngIf='!disableSubscribe'>
+
+      <button *ngIf='!this.blogInfo?.isSubscribed' mat-button (click)='onSubscribeBlog()'>Подписаться</button>
+      <button *ngIf='this.blogInfo?.isSubscribed' mat-button (click)='onUnsubscribeBlog()'>Отписаться</button>
+    </div>
+  </div>
 </div>

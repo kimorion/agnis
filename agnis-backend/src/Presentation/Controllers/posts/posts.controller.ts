@@ -12,6 +12,7 @@ import { PostsService } from './posts.service';
 import { CreatePostDto } from './dto/create-post.dto';
 import { UpdatePostDto } from './dto/update-post.dto';
 import { ApiTags } from '@nestjs/swagger';
+import { options } from 'tsconfig-paths/lib/options';
 
 @Controller('posts')
 @ApiTags('posts')
@@ -20,7 +21,11 @@ export class PostsController {
 
   @Post()
   create(@Body() createPostDto: CreatePostDto) {
-    return this.postsService.create(createPostDto);
+    return this.postsService.create({
+      ...createPostDto,
+      blog: { id: createPostDto.blogId },
+      creationDate: Date(),
+    });
   }
 
   @Get()
@@ -30,7 +35,7 @@ export class PostsController {
 
   @Get(':id')
   findOne(@Param('id', ParseUUIDPipe) id: string) {
-    return this.postsService.findOne(id);
+    return this.postsService.findOne(id, ['blog', 'blog.user']);
   }
 
   @Patch(':id')

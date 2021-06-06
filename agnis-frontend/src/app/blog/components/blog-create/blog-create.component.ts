@@ -9,10 +9,10 @@ import { BlogCreateStartAction } from '../../store/Actions/blog.action';
 
 @Component({
   selector: 'app-create-blog',
-  templateUrl: './create-blog.component.html',
-  styleUrls: ['./create-blog.component.scss'],
+  templateUrl: './blog-create.component.html',
+  styleUrls: ['./blog-create.component.scss'],
 })
-export class CreateBlogComponent implements OnInit {
+export class BlogCreateComponent implements OnInit {
   form: FormGroup;
   validationErrors$: Observable<BackendErrorsInterface | null>;
   isSubmitting$: Observable<boolean>;

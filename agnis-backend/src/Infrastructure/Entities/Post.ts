@@ -7,7 +7,13 @@ export class Post {
   id!: string;
 
   @Column('text', { nullable: false })
+  title!: string;
+
+  @Column('text', { nullable: false })
   content!: string;
+
+  @Column('timestamp with time zone', { nullable: false })
+  creationDate!: Date;
 
   @ManyToOne(() => Blog, { nullable: false })
   blog!: Blog;

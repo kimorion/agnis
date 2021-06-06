@@ -1,0 +1,25 @@
+<div *ngIf='(postInfo | async)' class='app-card'>
+
+  <div class='titleWrapper'>
+    <h2>
+      {{(postInfo | async)?.title}}
+    </h2>
+  </div>
+  <div class='contentWrapper' *ngIf='(postInfo | async)?.content'>
+    <p
+      class='postContent'
+    >
+      {{(postInfo | async)?.content}}
+    </p>
+  </div>
+
+  <div class='aboutWrapper'>
+    <p>Опубликовано в блоге <a class='nav-link' routerLink='/blogs/{{(postInfo | async)?.blog?.id}}'>"{{(postInfo |
+      async)?.blog?.name}}"</a>
+       автора
+      <a
+        class='nav-link' routerLink='/users/{{(postInfo | async)?.blog?.user?.id}}'
+      >@{{(postInfo | async)?.blog?.user?.login }}</a></p>
+    <p>{{(postInfo | async)?.creationDate | date:'d.M.yy, HH:mm'}}</p>
+  </div>
+</div>

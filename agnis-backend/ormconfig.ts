@@ -8,6 +8,7 @@ const config: ConnectionOptions = {
   username: 'postgres',
   password: 'postgres',
   database: 'agnis',
+  logging: true,
   synchronize: false,
   entities: ['dist/src/Infrastructure/Entities/**/*.{js,ts}'],
   migrations: ['dist/src/Infrastructure/Migrations/*.{js,ts}'],

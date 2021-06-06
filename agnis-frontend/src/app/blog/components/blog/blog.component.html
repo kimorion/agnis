@@ -1,0 +1,28 @@
+<div *ngIf='(blogInfo | async)' class='app-card'>
+
+  <div class='blogNameWrapper'>
+    <h2>
+      {{(blogInfo | async)?.name}}
+    </h2>
+  </div>
+
+  <div class='descriptionWrapper' *ngIf='(blogInfo | async)?.description'>
+    <span
+      class='description'
+    >
+      {{(blogInfo | async)?.description}}
+    </span>
+  </div>
+
+  <div *ngIf='(blogInfo | async)?.user!.id === (currentUser | async)?.id'>
+    <app-post-create></app-post-create>
+
+  </div>
+
+  <div *ngIf='(blogInfo | async)?.posts' class='postListHeaderWrapper'>
+    <h2>Последние посты:</h2>
+    <app-post-list [postsProp]='(blogInfo | async)!.posts'></app-post-list>
+  </div>
+
+  <!--  <button class='read-button' mat-button (click)='onReadBlog()'>Читать</button>-->
+</div>

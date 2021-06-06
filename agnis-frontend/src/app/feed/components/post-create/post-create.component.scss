@@ -1,0 +1,35 @@
+@use 'src/app/shared/styles/appStyles';
+
+.postContentTextArea {
+  text-align: left;
+  min-height: 5ch;
+}
+
+fieldset {
+}
+
+mat-form-field {
+  text-align: left;
+}
+
+label {
+  text-align: left;
+
+}
+
+.postNameInput {
+  font-size: 1.5rem;
+  text-align: left;
+}
+
+.postContentFormField {
+  text-align: left;
+}
+
+.expand-button {
+  margin: 0;
+}
+
+.mat-expansion-panel {
+  padding: 0.2em;
+}

@@ -1,0 +1,29 @@
+<div *ngIf='(userInfo | async)' class='app-card'>
+
+  <div class='loginWrapper'>
+    <h2>
+      @{{(userInfo | async)?.login}}
+    </h2>
+  </div>
+  <div class='aboutWrapper' *ngIf='(userInfo | async)'>
+    <h3>Информация о пользователе:</h3>
+    <ul>
+      <li>
+        <p>Имя: {{(userInfo | async)?.firstName}}</p>
+      </li>
+
+      <li>
+        <p>Фамилия: {{(userInfo | async)?.lastName}}</p>
+      </li>
+
+      <li>
+        <p>Дата Рождения: {{(userInfo | async)?.birthDate | date:'d/M/yy'}}</p>
+      </li>
+
+      <li>
+        <p>Био: {{(userInfo | async)?.bio}}</p>
+      </li>
+    </ul>
+  </div>
+
+</div>

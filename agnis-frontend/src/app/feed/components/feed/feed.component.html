@@ -1,0 +1,26 @@
+<div>
+  <div class='headerWrapper'>
+    <h2>Последние публикации в блогах:</h2>
+  </div>
+
+
+  <div *ngIf='(feedPosts | async)?.items?.length; else empty' class='post-list-wrapper'>
+    <ul class='postList'>
+      <app-post-list [postsProp]='(feedPosts | async)!.items'></app-post-list>
+    </ul>
+  </div>
+
+  <ng-template #empty>
+    <div class='app-card'>
+      <p style='text-align: center'>Пусто</p>
+    </div>
+  </ng-template>
+
+  <div class='paginatorWrapper'>
+    <mat-paginator
+      [length]='(feedPosts | async)?.count' [pageSize]='take' [pageSizeOptions]='[1, 5, 10, 20]'
+      (page)='onPageChange($event)'
+    ></mat-paginator>
+  </div>
+
+</div>

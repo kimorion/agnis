@@ -1,0 +1,55 @@
+<div *ngIf='(activeBlog$ | async)'>
+  <form class='app-form' [formGroup]='form' (ngSubmit)='onSubmit()'>
+
+    <mat-expansion-panel
+      class='mat-elevation-z0'
+    >
+      <mat-expansion-panel-header >
+        <mat-panel-title>
+          <h1 class='expand-button' >Создать пост</h1>
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+        <mat-form-field floatLabel='never' class='postNameInput' [hideRequiredMarker]='true'>
+          <mat-label>Название поста...</mat-label>
+          <input (keydown)='$event.stopPropagation()' matInput required formControlName='postName'>
+        </mat-form-field>
+
+      <mat-form-field class='postContentFormField' floatLabel='never' [hideRequiredMarker]='true'>
+      <textarea
+        class='postContentTextArea' [cdkTextareaAutosize]='true' matInput formControlName='postContent'
+        placeholder='Содержание поста...'
+      ></textarea>
+        <mat-error *ngIf='form.controls.postContent.invalid && form.controls.postContent.value.length > 9800'>
+          Максимальная длина поста - 10000 символов
+        </mat-error>
+
+        <mat-error *ngIf='form.controls.postContent.invalid && !form.controls.postContent.value.length'>
+          Пост не должен быть пустым
+        </mat-error>
+
+      </mat-form-field>
+
+      <div class='app-form-bottom-panel'>
+
+        <app-backend-errors-messages
+          *ngIf='(validationErrors$ | async)' [backendErrorsProps]='(validationErrors$ | async)'
+        ></app-backend-errors-messages>
+
+        <button
+          mat-button color='primary' type='submit' [disabled]='(isSubmitting$ | async)'
+        >
+          <span>Опубликовать пост</span>
+        </button>
+
+      </div>
+
+    </mat-expansion-panel>
+
+
+  </form>
+</div>
+
+
+
+
+

@@ -1,16 +1,28 @@
 import { BlogStateInterface } from '../types/blogState.interface';
 import { Action, createReducer, on } from '@ngrx/store';
 import {
-  BlogCreateSuccessAction,
   BlogCreateFailAction,
-  BlogCreateStartAction, UserBlogsFetchSuccessAction, UserBlogsFetchStartAction, UserBlogsFetchFailAction,
+  BlogCreateStartAction,
+  BlogCreateSuccessAction,
+  BlogFetchFailAction,
+  BlogFetchStartAction,
+  BlogFetchSuccessAction,
+  BlogsFetchSuccessAction,
+  SubscribeBlogFailAction,
+  SubscribeBlogStartAction,
+  SubscribeBlogSuccessAction,
+  UserBlogsFetchFailAction,
+  UserBlogsFetchStartAction,
+  UserBlogsFetchSuccessAction,
 } from './Actions/blog.action';
 
 const initialState: BlogStateInterface = {
   isSubmitting: false,
-  currentUser: null,
+  isLoading: false,
   validationErrors: null,
   currentUserBlogs: null,
+  activeBlog: null,
+  currentBlogs: null,
 };
 
 const blogReducer = createReducer(
@@ -62,6 +74,68 @@ const blogReducer = createReducer(
       ...state,
       isSubmitting: false,
       validationErrors: action.errors,
+    }),
+  ),
+
+  on(
+    BlogFetchStartAction,
+    (state): BlogStateInterface => ({
+      ...state,
+      isLoading: true,
+      activeBlog: null,
+      validationErrors: null,
+    }),
+  ),
+  on(
+    BlogFetchSuccessAction,
+    (state, response): BlogStateInterface => ({
+      ...state,
+      isLoading: false,
+      validationErrors: null,
+      activeBlog: response.blog,
+    }),
+  ),
+  on(
+    BlogFetchFailAction,
+    (state, action): BlogStateInterface => ({
+      ...state,
+      isLoading: false,
+      validationErrors: action.errors,
+      activeBlog: null,
+    }),
+  ),
+  on(
+    SubscribeBlogStartAction,
+    (state): BlogStateInterface => ({
+      ...state,
+      isLoading: true,
+      activeBlog: null,
+    }),
+  ),
+  on(
+    SubscribeBlogSuccessAction,
+    (state): BlogStateInterface => ({
+      ...state,
+      isLoading: false,
+      activeBlog: null,
+    }),
+  ),
+  on(
+    SubscribeBlogFailAction,
+    (state, action): BlogStateInterface => ({
+      ...state,
+      isLoading: false,
+      validationErrors: action.errors,
+      activeBlog: null,
+    }),
+  ),
+  on(
+    BlogsFetchSuccessAction,
+    (state, action): BlogStateInterface => ({
+      ...state,
+      isLoading: false,
+      currentBlogs: action.blogs,
+      activeBlog: null,
     }),
   ),
 );

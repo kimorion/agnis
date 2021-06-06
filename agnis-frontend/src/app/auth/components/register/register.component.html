@@ -12,16 +12,56 @@
 
     </mat-form-field>
 
+    <mat-form-field>
+      <mat-label>Имя</mat-label>
+      <input matInput required formControlName='firstName'>
+
+      <mat-error *ngIf='form.controls.firstName.invalid'>
+        Поле обязательно
+      </mat-error>
+
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Фамилия</mat-label>
+      <input matInput required formControlName='lastName'>
+
+      <mat-error *ngIf='form.controls.lastName.invalid'>
+        Поле обязательно
+      </mat-error>
+
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Дата рождения</mat-label>
+      <input required matInput [matDatepicker]='picker' formControlName='birthDate'>
+      <mat-datepicker-toggle matSuffix [for]='picker'></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+
+      <mat-error *ngIf='form.controls.birthDate.invalid'>
+        Поле обязательно
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>О себе</mat-label>
+      <input matInput formControlName='bio'>
+
+      <mat-error *ngIf='form.controls.bio.invalid'>
+        Поле обязательно
+      </mat-error>
+
+    </mat-form-field>
+
     <div class='app-form-bottom-panel'>
 
       <app-backend-errors-messages
-        *ngIf='(validationErrors$ | async)'
-        [backendErrorsProps]='(validationErrors$ | async)'>
-      </app-backend-errors-messages>
+        *ngIf='(validationErrors$ | async)' [backendErrorsProps]='(validationErrors$ | async)'
+      ></app-backend-errors-messages>
 
-      <button mat-button color='primary'
-              type='submit'
-              [disabled]='(isSubmitting$ | async)'>
+      <button
+        mat-button color='primary' type='submit' [disabled]='(isSubmitting$ | async)'
+      >
         Регистрация
       </button>
 

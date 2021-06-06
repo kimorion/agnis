@@ -14,10 +14,13 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { PersistenceService } from '../shared/services/PersistenceService';
 import { LoginComponent } from './components/login/login.component';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
 
 const routes: Routes = [
   { path: 'register', component: RegisterComponent },
-  { path: 'login', component: LoginComponent }];
+  { path: 'login', component: LoginComponent },
+];
 
 @NgModule({
   declarations: [RegisterComponent, LoginComponent],
@@ -32,6 +35,8 @@ const routes: Routes = [
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
   ],
   exports: [LoginComponent, RegisterComponent],
 })

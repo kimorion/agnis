@@ -1,0 +1,15 @@
+@use 'src/app/shared/styles/appStyles';
+
+.paginatorWrapper {
+  margin: auto;
+  width: fit-content;
+}
+
+.headerWrapper {
+  margin: auto;
+  width: fit-content;
+}
+
+.postList {
+  list-style: none;
+}

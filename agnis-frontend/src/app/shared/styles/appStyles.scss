@@ -20,7 +20,7 @@ $testVariable: royalblue;
 
 .app-card {
   @extend .app-card-shadow;
-  padding: 1.5em;
+  padding: 1em 2em 1em 2em;
   background-color: colors.$background;
 }
 
@@ -41,20 +41,26 @@ $testVariable: royalblue;
   h2 {
     text-align: center;
   }
-
-  fieldset {
-    @extend .app-card;
-
-    mat-form-field {
-      border: none;
-      box-sizing: border-box;
-      display: block;
-      text-align: center;
-      width: 100%;
-    }
-
-    button {
-      @extend .app-primary-button;
-    }
-  }
 }
+
+fieldset {
+  @extend .app-card;
+}
+
+button {
+  @extend .app-primary-button;
+}
+
+mat-form-field {
+  border: none;
+  box-sizing: border-box;
+  display: block;
+  text-align: center;
+  width: 100%;
+}
+
+
+mat-expansion-panel {
+  @extend .app-card;
+}
+

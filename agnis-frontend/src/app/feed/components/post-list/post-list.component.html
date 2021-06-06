@@ -1,0 +1,7 @@
+<div *ngIf='postsProp?.length' class='postsWrapper'>
+  <ul class='userBlogsList'>
+    <li *ngFor='let post of postsProp;'>
+      <app-post-card [postDataProp]='post'></app-post-card>
+    </li>
+  </ul>
+</div>

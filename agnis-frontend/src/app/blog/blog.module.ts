@@ -12,17 +12,24 @@ import { MatButtonModule } from '@angular/material/button';
 import { CommonModule } from '@angular/common';
 import { PersistenceService } from '../shared/services/PersistenceService';
 import { BackendErrorsMessagesModule } from '../shared/modules/backendErrorsMessages/backendErrorsMessages.module';
-import { CreateBlogComponent } from './components/create-blog/create-blog.component';
+import { BlogCreateComponent } from './components/blog-create/blog-create.component';
 import { BlogListComponent } from './components/blog-list/blog-list.component';
 import { BlogCardComponent } from './components/blog-card/blog-card.component';
+import { BlogComponent } from './components/blog/blog.component';
+import { FeedModule } from '../feed/feed.module';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { UserBlogsComponent } from './components/user-blogs/user-blogs.component';
+import { BlogsComponent } from './components/blogs/blogs.component';
 
 const routes: Routes = [
-  { path: 'create-blog', component: CreateBlogComponent },
-  { path: 'blog-list', component: BlogListComponent }
+  { path: 'blog-create', component: BlogCreateComponent },
+  { path: 'user-blogs', component: UserBlogsComponent },
+  { path: 'blogs', component: BlogsComponent },
+  { path: 'blogs/:id', component: BlogComponent },
 ];
 
 @NgModule({
-  declarations: [CreateBlogComponent, BlogListComponent, BlogCardComponent],
+  declarations: [BlogCreateComponent, BlogListComponent, BlogCardComponent, BlogComponent, UserBlogsComponent, BlogsComponent],
   providers: [blogService, PersistenceService],
   imports: [
     CommonModule,
@@ -34,7 +41,9 @@ const routes: Routes = [
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
+    FeedModule,
+    MatExpansionModule,
   ],
-  exports: [CreateBlogComponent, BlogListComponent, BlogCardComponent],
+  exports: [BlogCreateComponent, BlogListComponent, BlogCardComponent],
 })
 export class BlogModule {}

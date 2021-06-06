@@ -21,6 +21,14 @@ export class PersistenceService {
     }
   }
 
+  tryRemove(key: string): void {
+    try {
+      localStorage.removeItem(key);
+    } catch (e) {
+      console.error(`Error remove key: ${key} from localStorage`, e);
+    }
+  }
+
   tryGet<TResult>(key: string): TResult | null {
     try {
       return JSON.parse(localStorage.getItem(key)!);

@@ -1,0 +1,22 @@
+<!--title: string;-->
+<!--content: string;-->
+<!--blog: BlogDataInterface;-->
+
+<div class='app-card'>
+
+  <div class='postNameWrapper'>
+    <h2>
+      {{postDataProp?.title}}
+    </h2>
+  </div>
+
+  <div class='descriptionWrapper' *ngIf='postDataProp?.content'>
+    <span
+      class='description'
+    >
+      {{postDataProp?.content!.substr(0, 200) + (postDataProp?.content!.length > 200 ? '...' : '')}}
+    </span>
+  </div>
+
+  <button class='read-button' mat-button (click)='onReadPost()'>Читать</button>
+</div>

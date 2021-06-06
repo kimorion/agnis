@@ -1,6 +1,10 @@
 @use 'src/app/shared/styles/appStyles' as styles;
 @use 'src/app/shared/styles/appColors' as colors;
 
+.hidden {
+  display: none;
+}
+
 .nav-container {
   position: fixed;
   top: 0;
@@ -29,14 +33,13 @@
       flex-wrap: wrap;
       justify-content: space-between;
 
-      a {
+      a, button {
         font-size: 1rem;
-        margin: 0.4em 0.4em;
+        margin: 0.2em 0.4em;
         padding: 0 0.6em;
         list-style: none;
         border-radius: 18px;
-
-        transition: 200ms;
+        box-shadow: none;
       }
 
       .active {

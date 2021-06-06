@@ -21,7 +21,17 @@ export class BlogsService extends EntityService<Blog> {
   }
 
   async findAll(relations: string[] | undefined = undefined): Promise<Blog[]> {
-    return super.findAll(relations);
+    const currentUserId = this.userService.getCurrentUser().id;
+
+    let result = await super.findAll(relations?.concat(['subscriptions.user']));
+    result = result.map((r) => {
+      const isSubscribed = r.subscriptions.some(
+        (e) => e.user.id === currentUserId,
+      );
+      return { ...r, isSubscribed };
+    });
+
+    return result;
   }
 
   async findOne(
@@ -64,10 +74,11 @@ export class BlogsService extends EntityService<Blog> {
   }
 
   async findByCurrentUser() {
-    return await this.repository
+    const currentUserId = this.userService.getCurrentUser().id;
+    let result = await this.repository
       .find({
-        where: { user: { id: this.userService.getCurrentUser().id } },
-        relations: ['user'],
+        where: { user: { id: currentUserId } },
+        relations: ['user', 'subscriptions', 'subscriptions.user'],
       })
       .catch((error) => {
         if (error instanceof QueryFailedError) {
@@ -78,5 +89,14 @@ export class BlogsService extends EntityService<Blog> {
         }
         throw error;
       });
+
+    result = result.map((r) => {
+      const isSubscribed = r.subscriptions.some(
+        (e) => e.user.id === currentUserId,
+      );
+      return { ...r, isSubscribed };
+    });
+
+    return result;
   }
 }

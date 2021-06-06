@@ -27,13 +27,14 @@ export class BlogsController {
   }
 
   @Get()
-  findAll() {
-    return this.blogsService.findAll(["users"]);
+  async findAll() {
+    const result = await this.blogsService.findAll(['user', 'subscriptions']);
+    return { items: result };
   }
 
   @Get(':id')
   findOne(@Param('id', ParseUUIDPipe) id: string) {
-    return this.blogsService.findOne(id);
+    return this.blogsService.findOne(id, ['posts', 'user']);
   }
 
   @Patch(':id')

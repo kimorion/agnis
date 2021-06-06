@@ -21,12 +21,17 @@ export const blogIsSubmittingSelector = createSelector(
   (state: BlogStateInterface) => state.isSubmitting,
 );
 
-export const currentUserSelector = createSelector(
-  blogFeatureSelector,
-  (state: BlogStateInterface) => state.currentUser,
-);
-
 export const currentUserBlogsSelector = createSelector(
   blogFeatureSelector,
   (state: BlogStateInterface) => state.currentUserBlogs,
+);
+
+export const currentBlogsSelector = createSelector(
+  blogFeatureSelector,
+  (state: BlogStateInterface) => state.currentBlogs,
+);
+
+export const activeBlogSelector = createSelector(
+  blogFeatureSelector,
+  (state: BlogStateInterface) => state.activeBlog,
 );

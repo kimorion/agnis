@@ -1,32 +1,43 @@
 <div class='nav-container'>
   <nav class='navbar navbar-fixed-top navbar-dark bg-inverse'>
     <div class='flex-container'>
-      <a
-        mat-button class='nav-link' routerLink='/feed' [routerLinkActive]="'active'"
-      >Главная</a>
-      <a
-        mat-button class='nav-link' routerLink='/messages' [routerLinkActive]="'active'"
-      >Сообщения</a>
-      <a
-        mat-button class='nav-link' routerLink='/user-blogs' [routerLinkActive]="'active'"
-      >Мои блоги</a>
 
-      <a mat-button *ngIf='!(currentUserInfo$ | async)' class='nav-link' routerLink='/register'>Регистрация</a>
+      <ng-container *ngIf='isLoggedIn$ | async'>
+        <a
+          mat-button class='nav-link' routerLink='/feed' [routerLinkActive]="'active'"
+        >Главная</a>
+<!--        <a-->
+<!--          mat-button class='nav-link' routerLink='/messages' [routerLinkActive]="'active'"-->
+<!--        >Сообщения</a>-->
+        <a
+          mat-button class='nav-link' routerLink='/blogs' [routerLinkActive]="'active'"
+        >Блоги</a>
+        <a
+          mat-button class='nav-link' routerLink='/user-blogs' [routerLinkActive]="'active'"
+        >Мои блоги</a>
+      </ng-container>
 
-      <div class='user-menu' *ngIf='(currentUserInfo$ | async)'>
-        <button mat-icon-button mat-button [matMenuTriggerFor]='menu'>
-          {{(currentUserInfo$ | async)?.login || 'empty'}}
+      <ng-container *ngIf='!(currentUserInfo$ | async)'>
+        <a
+          mat-button class='nav-link' routerLink='/register' [routerLinkActive]="['active', 'hidden']"
+        >Регистрация</a>
+        <a
+          mat-button class='nav-link' routerLink='/login' [routerLinkActive]="['active', 'hidden']"
+        >Вход</a>
+      </ng-container>
 
+      <ng-container class='user-menu' *ngIf='(currentUserInfo$ | async)'>
+        <button mat-button [matMenuTriggerFor]='menu'>
+          <span>@{{(currentUserInfo$ | async)?.login || 'empty'}}</span>
           <mat-icon>more_vert</mat-icon>
         </button>
 
-
         <mat-menu #menu='matMenu'>
-          <a mat-menu-item class='nav-link' routerLink='/register'>Профиль</a>
-          <a mat-menu-item class='nav-link' routerLink='/settings'>Настройки</a>
-          <a mat-menu-item class='nav-link' routerLink='logout'>Выход</a>
+          <a mat-menu-item class='nav-link' routerLink='/users/{{(this.currentUserInfo$ | async)?.id}}'>Профиль</a>
+<!--          <a mat-menu-item class='nav-link' routerLink='/settings'>Настройки</a>-->
+          <a mat-menu-item class='nav-link' (click)='logout()'>Выход</a>
         </mat-menu>
-      </div>
+      </ng-container>
 
 
     </div>

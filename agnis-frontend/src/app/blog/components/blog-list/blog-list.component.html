@@ -1,7 +1,15 @@
-<div *ngIf='userBlogs$ | async' class='blog-list-wrapper'>
+<div *ngIf='(blogProp)?.items?.length; else empty' class='blog-list-wrapper'>
   <ul class='userBlogsList'>
-    <li class='userBlog' *ngFor='let item of (userBlogs$ | async)?.items;'>
-      <app-blog-card [blogInfoProp]='item'></app-blog-card>
+    <li class='userBlog' *ngFor='let item of (blogProp)?.items;'>
+      <app-blog-card
+        [blogInfoProp]='item' [disableSubscribe]='item.isSubscribed || item.user.id === this.currentUserId'
+      ></app-blog-card>
     </li>
   </ul>
 </div>
+
+<ng-template #empty>
+  <div class='app-card'>
+    <p style='text-align: center'>Пусто</p>
+  </div>
+</ng-template>

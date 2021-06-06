@@ -1,4 +1,4 @@
-import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
+import { MiddlewareConsumer, Module, NestModule, Scope } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import * as ormconfig from './../ormconfig';
 import { User } from './Infrastructure/Entities/User';
@@ -25,11 +25,15 @@ import { UsersService } from './Presentation/Controllers/users/users.service';
 import { Blog } from './Infrastructure/Entities/Blog';
 import { CurrentUserService } from './Application/Services/currentUser.service';
 import { AuthorizationMiddleware } from './Application/Middleware/authorizationMiddleware.service';
+import { Post } from './Infrastructure/Entities/Post';
+import { FeedController } from './Presentation/Controllers/feed/feed.controller';
+import { BlogSubscription } from './Infrastructure/Entities/BlogSubscription';
+import { FeedService } from './Presentation/Controllers/feed/feed.service';
 
 @Module({
   imports: [
     TypeOrmModule.forRoot(ormconfig),
-    TypeOrmModule.forFeature([User, Blog]),
+    TypeOrmModule.forFeature([User, Blog, Post, BlogSubscription]),
     AutomapperModule.forRoot({
       options: [{ name: 'Mapper', pluginInitializer: classes }],
     }),
@@ -44,6 +48,7 @@ import { AuthorizationMiddleware } from './Application/Middleware/authorizationM
     MediaFilesController,
     CommentController,
     BlogsController,
+    FeedController,
   ],
   providers: [
     UsersService,
@@ -56,11 +61,7 @@ import { AuthorizationMiddleware } from './Application/Middleware/authorizationM
     CommentService,
     BlogsService,
     CurrentUserService,
-    // {
-    //   provide: 'root',
-    //   useClass: CurrentUserService,
-    //   scope: Scope.TRANSIENT,
-    // },
+    FeedService,
   ],
   exports: [],
 })

@@ -5,6 +5,7 @@ import { LoginRequestInterface } from '../../types/loginRequest.interface';
 import { UserRequestInterface } from '../../types/userRequest.interface';
 
 export enum ActionTypes {
+  LOGOUT = '[Auth] User logout',
   LOGIN = '[Auth] Login',
   LOGIN_SUCCESS = '[Auth] Login success',
   LOGIN_FAILURE = '[Auth] Login failure',
@@ -54,3 +55,5 @@ export const getCurrentUserSuccessAction = createAction(
 );
 
 export const getCurrentUserFailureAction = createAction(ActionTypes.GET_CURRENT_USER_FAILURE);
+
+export const logoutAction = createAction(ActionTypes.LOGOUT);

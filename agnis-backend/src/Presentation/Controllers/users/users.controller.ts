@@ -27,7 +27,7 @@ export class UsersController {
 
   @Get('current/blogs')
   async findUserBlogs() {
-    let blogs = await this.blogService.findByCurrentUser();
+    const blogs = await this.blogService.findByCurrentUser();
     return { items: blogs };
   }
 

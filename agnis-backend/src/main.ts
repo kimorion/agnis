@@ -5,6 +5,7 @@ import { INestApplication, ValidationPipe } from '@nestjs/common';
 import { HttpExceptionFilter } from './Presentation/ExceptionFilters/http-exception.filter';
 
 function configureSwagger(app: INestApplication) {
+  process.env.TZ = 'UTC';
   const config = new DocumentBuilder()
     .setTitle('Agnis')
     .setDescription('The Agnis API description')
@@ -17,7 +18,7 @@ function configureSwagger(app: INestApplication) {
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
-  app.useGlobalFilters(new HttpExceptionFilter())
+  app.useGlobalFilters(new HttpExceptionFilter());
   app.enableCors({ origin: 'http://localhost:4200' });
   configureSwagger(app);
   app.useGlobalPipes(

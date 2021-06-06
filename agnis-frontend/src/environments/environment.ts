@@ -9,7 +9,10 @@ export const environment = {
     userPath: '/users',
     currentUserPath: '/users/current',
     loginPath: '/users/login',
-    blogPath:'/blogs'
+    blogPath:'/blogs',
+    userBlogPath:'/user-blogs',
+    postPath:'/posts',
+    feedPath:'/feed'
   },
 };
 

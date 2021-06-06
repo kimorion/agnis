@@ -20,14 +20,17 @@ export class RegisterComponent implements OnInit {
   constructor(private store: Store<AppStateInterface>) {
     this.form = new FormGroup({
       login: new FormControl('', [Validators.required]),
+      firstName: new FormControl('', [Validators.required]),
+      lastName: new FormControl('', [Validators.required]),
+      birthDate: new FormControl('', [Validators.required]),
+      bio: new FormControl('', []),
     });
 
     this.isSubmitting$ = this.store.pipe(select(isSubmittingSelector));
     this.validationErrors$ = this.store.pipe(select(registerValidationErrorsSelector));
   }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   onSubmit(): void {
     if (this.form.valid) this.store.dispatch(registerAction({ request: this.form.value }));
