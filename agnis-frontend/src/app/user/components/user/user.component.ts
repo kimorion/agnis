@@ -35,7 +35,6 @@ export class UserComponent implements OnInit {
         take(1),
       )
       .subscribe((e) => {
-        console.log('set', e);
         this.form.controls.firstName.setValue(e?.firstName);
         this.form.controls.lastName.setValue(e?.lastName);
         this.form.controls.birthDate.setValue(e?.birthDate);
