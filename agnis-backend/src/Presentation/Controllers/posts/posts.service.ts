@@ -9,6 +9,4 @@ export class PostsService extends EntityService<Post> {
   constructor(@InjectRepository(Post) repository: Repository<Post>) {
     super(repository);
   }
-
-
 }

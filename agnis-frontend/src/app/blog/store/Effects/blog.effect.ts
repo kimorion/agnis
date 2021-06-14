@@ -16,6 +16,7 @@ import {
   BlogsFetchFailAction,
   BlogsFetchStartAction,
   BlogsFetchSuccessAction,
+  BlogsPageChangeAction,
   OpenBlogAction,
   SubscribeBlogFailAction,
   SubscribeBlogStartAction,
@@ -26,6 +27,7 @@ import {
   UserBlogsFetchFailAction,
   UserBlogsFetchStartAction,
   UserBlogsFetchSuccessAction,
+  UserBlogsPageChangeAction,
 } from '../Actions/blog.action';
 import { BlogDataListInterface } from '../../types/blogDataList.interface';
 import { environment } from '../../../../environments/environment';
@@ -101,7 +103,7 @@ export class blogEffect {
       switchMap(({ blogId }) =>
         this.blogService.subscribeToBlog(blogId).pipe(
           map((response: SubscriptionResponseInterface) =>
-            SubscribeBlogSuccessAction({ result: response }),
+            SubscribeBlogSuccessAction({ blogId: blogId }),
           ),
           catchError((e) => of(SubscribeBlogFailAction({ errors: e.error }))),
         ),
@@ -115,7 +117,7 @@ export class blogEffect {
       switchMap(({ blogId }) =>
         this.blogService.unsubscribeToBlog(blogId).pipe(
           map((response: SubscriptionResponseInterface) =>
-            UnsubscribeBlogSuccessAction({ result: response }),
+            UnsubscribeBlogSuccessAction({ blogId: blogId }),
           ),
           catchError((e) => of(UnsubscribeBlogFailAction({ errors: e.error }))),
         ),
@@ -135,26 +137,48 @@ export class blogEffect {
     ),
   );
 
-  blogSubscribeSuccess$ = createEffect(
-    () =>
-      this.actions$.pipe(
-        ofType(SubscribeBlogSuccessAction),
-        tap(({ result }) => {
-          window.location.reload();
-        }),
-      ),
-    { dispatch: false },
+  blogSubscribeSuccess$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(SubscribeBlogSuccessAction),
+      switchMap(({ blogId }) => {
+        return of(BlogFetchStartAction({ blogId: blogId }), BlogsFetchStartAction());
+      }),
+    ),
   );
 
-  blogUnsubscribeSuccess$ = createEffect(
-    () =>
-      this.actions$.pipe(
-        ofType(UnsubscribeBlogSuccessAction),
-        tap(({ result }) => {
-          window.location.reload();
-        }),
-      ),
-    { dispatch: false },
+  blogUnsubscribeSuccess$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(UnsubscribeBlogSuccessAction),
+      switchMap(({ blogId }) => {
+        return of(BlogFetchStartAction({ blogId: blogId }), BlogsFetchStartAction());
+      }),
+    ),
+  );
+
+  blogsPageChange$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(BlogsPageChangeAction),
+      map(({ skip, take }) => {
+        this.router.navigate([], {
+          queryParams: { skip: skip, take: take },
+          queryParamsHandling: 'merge',
+        });
+        return BlogsFetchStartAction();
+      }),
+    ),
+  );
+
+  userBlogsPageChange$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(UserBlogsPageChangeAction),
+      map(({ skip, take }) => {
+        this.router.navigate([], {
+          queryParams: { skip: skip, take: take },
+          queryParamsHandling: 'merge',
+        });
+        return UserBlogsFetchStartAction();
+      }),
+    ),
   );
 
   constructor(

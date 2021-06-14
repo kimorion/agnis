@@ -1,29 +1,61 @@
-<div *ngIf='(userInfo | async)' class='app-card'>
+<form class='app-form' [formGroup]='form' (ngSubmit)='onSubmit()'>
+  <fieldset>
+    <h2>@{{(userInfo | async)?.login}}</h2>
 
-  <div class='loginWrapper'>
-    <h2>
-      @{{(userInfo | async)?.login}}
-    </h2>
-  </div>
-  <div class='aboutWrapper' *ngIf='(userInfo | async)'>
-    <h3>Информация о пользователе:</h3>
-    <ul>
-      <li>
-        <p>Имя: {{(userInfo | async)?.firstName}}</p>
-      </li>
+    <mat-form-field>
+      <mat-label>Имя</mat-label>
+      <input matInput required formControlName='firstName' [readonly]='!isEditing'>
 
-      <li>
-        <p>Фамилия: {{(userInfo | async)?.lastName}}</p>
-      </li>
+      <mat-error *ngIf='form.controls.firstName.invalid'>
+        Поле обязательно
+      </mat-error>
 
-      <li>
-        <p>Дата Рождения: {{(userInfo | async)?.birthDate | date:'d/M/yy'}}</p>
-      </li>
+    </mat-form-field>
 
-      <li>
-        <p>Био: {{(userInfo | async)?.bio}}</p>
-      </li>
-    </ul>
-  </div>
+    <mat-form-field>
+      <mat-label>Фамилия</mat-label>
+      <input matInput required formControlName='lastName' [readonly]='!isEditing' />
 
-</div>
+      <mat-error *ngIf='form.controls.lastName.invalid'>
+        Поле обязательно
+      </mat-error>
+
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Дата рождения</mat-label>
+      <input required matInput [matDatepicker]='picker' formControlName='birthDate' [readonly]='!isEditing'>
+      <mat-datepicker-toggle matSuffix [for]='picker'></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+
+      <mat-error *ngIf='form.controls.birthDate.invalid'>
+        Поле обязательно
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>О себе</mat-label>
+      <input matInput formControlName='bio' [readonly]='!isEditing'>
+
+      <mat-error *ngIf='form.controls.bio.invalid'>
+        Поле обязательно
+      </mat-error>
+
+    </mat-form-field>
+
+    <div class='app-form-bottom-panel'>
+
+<!--            <app-backend-errors-messages-->
+<!--              *ngIf='(validationErrors$ | async)' [backendErrorsProps]='(validationErrors$ | async)'-->
+<!--            ></app-backend-errors-messages>-->
+
+<!--      <button-->
+<!--        mat-button color='primary' type='submit' [disabled]='(false)'-->
+<!--      >-->
+<!--        Сохранить профиль-->
+<!--      </button>-->
+
+    </div>
+
+  </fieldset>
+</form>

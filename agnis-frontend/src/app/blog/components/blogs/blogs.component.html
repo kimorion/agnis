@@ -1,1 +1,26 @@
+<div>
+  <form class='app-form' [formGroup]='form' (ngSubmit)='onSubmit()'>
+    <fieldset>
+      <h2>Поиск</h2>
+
+      <mat-form-field>
+        <mat-label>Название</mat-label>
+        <input matInput formControlName='blogName'>
+      </mat-form-field>
+
+      <button
+        mat-button color='primary' type='submit'
+      >
+        <span>Поиск</span>
+      </button>
+    </fieldset>
+  </form>
+</div>
+
 <app-blog-list [blogProp]='(blogs$ | async)'></app-blog-list>
+<div *ngIf='(blogs$ | async)' class='paginatorWrapper'>
+  <mat-paginator
+    [length]='(blogs$ | async)?.count' [pageSize]='take' [pageSizeOptions]='[1, 5, 10, 20]'
+    (page)='onPageChange($event)'
+  ></mat-paginator>
+</div>

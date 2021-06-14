@@ -1,2 +1,8 @@
 <app-create-blog></app-create-blog>
 <app-blog-list [blogProp]='(userBlogs$ | async)' [disableSubscribe]='true'></app-blog-list>
+<div *ngIf='(userBlogs$ | async)' class='paginatorWrapper'>
+  <mat-paginator
+    [length]='(userBlogs$ | async)?.count' [pageSize]='take' [pageSizeOptions]='[1, 5, 10, 20]'
+    (page)='onPageChange($event)'
+  ></mat-paginator>
+</div>

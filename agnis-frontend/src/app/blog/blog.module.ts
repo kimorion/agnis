@@ -20,6 +20,7 @@ import { FeedModule } from '../feed/feed.module';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { UserBlogsComponent } from './components/user-blogs/user-blogs.component';
 import { BlogsComponent } from './components/blogs/blogs.component';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 const routes: Routes = [
   { path: 'blog-create', component: BlogCreateComponent },
@@ -29,7 +30,14 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  declarations: [BlogCreateComponent, BlogListComponent, BlogCardComponent, BlogComponent, UserBlogsComponent, BlogsComponent],
+  declarations: [
+    BlogCreateComponent,
+    BlogListComponent,
+    BlogCardComponent,
+    BlogComponent,
+    UserBlogsComponent,
+    BlogsComponent,
+  ],
   providers: [blogService, PersistenceService],
   imports: [
     CommonModule,
@@ -43,6 +51,7 @@ const routes: Routes = [
     MatButtonModule,
     FeedModule,
     MatExpansionModule,
+    MatPaginatorModule,
   ],
   exports: [BlogCreateComponent, BlogListComponent, BlogCardComponent],
 })

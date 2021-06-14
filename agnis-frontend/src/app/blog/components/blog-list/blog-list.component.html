@@ -2,7 +2,7 @@
   <ul class='userBlogsList'>
     <li class='userBlog' *ngFor='let item of (blogProp)?.items;'>
       <app-blog-card
-        [blogInfoProp]='item' [disableSubscribe]='item.isSubscribed || item.user.id === this.currentUserId'
+        [blogInfoProp]='item' [disableSubscribe]='item.user.id === this.currentUserId'
       ></app-blog-card>
     </li>
   </ul>

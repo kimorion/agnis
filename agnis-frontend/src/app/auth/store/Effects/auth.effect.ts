@@ -44,7 +44,7 @@ export class AuthEffect {
       this.actions$.pipe(
         ofType(registerSuccessAction, loginSuccessAction),
         tap(() => {
-          this.router.navigateByUrl('/');
+          this.router.navigateByUrl('/feed');
         }),
       ),
     { dispatch: false },

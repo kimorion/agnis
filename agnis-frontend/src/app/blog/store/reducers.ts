@@ -109,7 +109,6 @@ const blogReducer = createReducer(
     (state): BlogStateInterface => ({
       ...state,
       isLoading: true,
-      activeBlog: null,
     }),
   ),
   on(
@@ -117,7 +116,6 @@ const blogReducer = createReducer(
     (state): BlogStateInterface => ({
       ...state,
       isLoading: false,
-      activeBlog: null,
     }),
   ),
   on(
@@ -126,7 +124,6 @@ const blogReducer = createReducer(
       ...state,
       isLoading: false,
       validationErrors: action.errors,
-      activeBlog: null,
     }),
   ),
   on(
@@ -135,7 +132,6 @@ const blogReducer = createReducer(
       ...state,
       isLoading: false,
       currentBlogs: action.blogs,
-      activeBlog: null,
     }),
   ),
 );

@@ -7,6 +7,7 @@ import {
   ParseUUIDPipe,
   Patch,
   Post,
+  Query,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
@@ -26,16 +27,17 @@ export class UsersController {
   ) {}
 
   @Get('current/blogs')
-  async findUserBlogs() {
-    const blogs = await this.blogService.findByCurrentUser();
-    return { items: blogs };
+  async findUserBlogs(
+    @Query('take') take: number,
+    @Query('skip') skip: number,
+  ) {
+    return await this.blogService.findByCurrentUser(take, skip);
   }
 
   @Get('current')
   findCurrent() {
     return this.currentUserService.getCurrentUser();
   }
-
 
   @Post()
   create(@Body() createUserDto: CreateUserDto) {

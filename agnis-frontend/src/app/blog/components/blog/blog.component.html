@@ -6,6 +6,12 @@
     </h2>
   </div>
 
+  <div class='subscribeButtonWrapper' *ngIf='(this.blogInfo | async)?.user?.id !== (currentUser | async)?.id'>
+    <button *ngIf='!(this.blogInfo | async)?.isSubscribed' mat-button (click)='onSubscribeBlog()'>Подписаться</button>
+    <button *ngIf='(this.blogInfo | async)?.isSubscribed' mat-button (click)='onUnsubscribeBlog()'>Подписка оформлена
+    </button>
+  </div>
+
   <div class='descriptionWrapper' *ngIf='(blogInfo | async)?.description'>
     <span
       class='description'
@@ -14,15 +20,26 @@
     </span>
   </div>
 
+  <div class='blogInfoWrapper'>
+    <p class='descriptionLabel'>Автор: </p>
+    <p class='author'>@{{(this.blogInfo | async)?.user?.login}}</p>
+  </div>
+
   <div *ngIf='(blogInfo | async)?.user!.id === (currentUser | async)?.id'>
     <app-post-create></app-post-create>
 
   </div>
 
-  <div *ngIf='(blogInfo | async)?.posts' class='postListHeaderWrapper'>
-    <h2>Последние посты:</h2>
+  <div *ngIf='(blogInfo | async)?.posts?.length; else noPosts' class='postListHeaderWrapper'>
+    <h2>Последние публикации:</h2>
     <app-post-list [postsProp]='(blogInfo | async)!.posts'></app-post-list>
   </div>
+
+  <ng-template #noPosts>
+    <div class='postListHeaderWrapper'>
+      <h2>Нет публикаций</h2>
+    </div>
+  </ng-template>
 
   <!--  <button class='read-button' mat-button (click)='onReadBlog()'>Читать</button>-->
 </div>

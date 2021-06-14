@@ -6,6 +6,7 @@ import { select, Store } from '@ngrx/store';
 import { AppStateInterface } from '../../../shared/types/appState.interface';
 import { blogIsSubmittingSelector, blogValidationErrorsSelector } from '../../store/selectors';
 import { BlogCreateStartAction } from '../../store/Actions/blog.action';
+import { Actions } from '@ngrx/effects';
 
 @Component({
   selector: 'app-create-blog',
@@ -17,7 +18,7 @@ export class BlogCreateComponent implements OnInit {
   validationErrors$: Observable<BackendErrorsInterface | null>;
   isSubmitting$: Observable<boolean>;
 
-  constructor(private store: Store<AppStateInterface>) {
+  constructor(private store: Store<AppStateInterface>, updates$ : Actions) {
     this.form = new FormGroup({
       blogName: new FormControl('', [Validators.required]),
       blogDescription: new FormControl('', [Validators.maxLength(400)]),

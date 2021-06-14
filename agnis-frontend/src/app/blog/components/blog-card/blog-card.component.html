@@ -6,21 +6,33 @@
     </h2>
   </div>
 
-  <div class='descriptionWrapper' *ngIf='blogInfo?.description'>
-    <span
+  <div class='descriptionWrapper' *ngIf='blogInfo?.description; else noDescription'>
+    <p class='descriptionLabel'>Описание: </p>
+    <p
       class='description'
     >
       {{blogInfo?.description}}
-    </span>
+    </p>
   </div>
+
+  <ng-template #noDescription>
+    <div class='descriptionWrapper'>
+      <p class='descriptionLabel'>Без описания</p>
+    </div>
+  </ng-template>
+
+  <div class='blogInfoWrapper'>
+    <p class='descriptionLabel'>Автор: </p>
+    <p class='author'>@{{blogInfo?.user?.login}}</p>
+  </div>
+
 
   <div class='buttonBox'>
     <button mat-button (click)='onReadBlog()'>Читать</button>
 
     <div *ngIf='!disableSubscribe'>
-
       <button *ngIf='!this.blogInfo?.isSubscribed' mat-button (click)='onSubscribeBlog()'>Подписаться</button>
-      <button *ngIf='this.blogInfo?.isSubscribed' mat-button (click)='onUnsubscribeBlog()'>Отписаться</button>
+      <button *ngIf='this.blogInfo?.isSubscribed' mat-button (click)='onUnsubscribeBlog()'>Подписка оформлена</button>
     </div>
   </div>
 </div>

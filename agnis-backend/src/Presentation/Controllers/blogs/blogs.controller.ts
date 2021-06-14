@@ -7,6 +7,7 @@ import {
   ParseUUIDPipe,
   Patch,
   Post,
+  Query,
 } from '@nestjs/common';
 import { BlogsService } from './blogs.service';
 import { CreateBlogDto } from './dto/create-blog.dto';
@@ -27,14 +28,29 @@ export class BlogsController {
   }
 
   @Get()
-  async findAll() {
-    const result = await this.blogsService.findAll(['user', 'subscriptions']);
-    return { items: result };
+  async findAll(
+    @Query('take') take: number,
+    @Query('skip') skip: number,
+    @Query('name') name: string,
+  ) {
+    const result = await this.blogsService.findAll(
+      ['user', 'subscriptions'],
+      take,
+      skip,
+      name,
+    );
+    const count = await this.blogsService.countAll();
+    return { items: result, count: count };
   }
 
   @Get(':id')
   findOne(@Param('id', ParseUUIDPipe) id: string) {
-    return this.blogsService.findOne(id, ['posts', 'user']);
+    return this.blogsService.findOne(id, [
+      'posts',
+      'user',
+      'subscriptions',
+      'subscriptions.user',
+    ]);
   }
 
   @Patch(':id')

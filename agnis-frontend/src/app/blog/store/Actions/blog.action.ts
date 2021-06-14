@@ -25,6 +25,8 @@ export enum BlogActionTypes {
   UnsubscribeBlogStart = '[Blog] UnsubscribeBlogStart',
   UnsubscribeBlogSuccess = '[Blog] UnsubscribeBlogSuccess',
   UnsubscribeBlogFail = '[Blog] UnsubscribeBlogFail',
+  BlogsPageChange = '[Blog] BlogsPageChange',
+  UserBlogsPageChange = '[Blog] UserBlogsPageChange',
 }
 
 export const BlogCreateStartAction = createAction(
@@ -77,7 +79,7 @@ export const SubscribeBlogStartAction = createAction(
 );
 export const SubscribeBlogSuccessAction = createAction(
   BlogActionTypes.SubscribeBlogSuccess,
-  props<{ result: SubscriptionResponseInterface }>(),
+  props<{ blogId: string }>(),
 );
 export const SubscribeBlogFailAction = createAction(
   BlogActionTypes.SubscribeBlogFail,
@@ -90,14 +92,17 @@ export const UnsubscribeBlogStartAction = createAction(
 );
 export const UnsubscribeBlogSuccessAction = createAction(
   BlogActionTypes.UnsubscribeBlogSuccess,
-  props<{ result: SubscriptionResponseInterface }>(),
+  props<{ blogId: string }>(),
 );
 export const UnsubscribeBlogFailAction = createAction(
   BlogActionTypes.UnsubscribeBlogFail,
   props<{ errors: BackendErrorsInterface }>(),
 );
 
-export const BlogsFetchStartAction = createAction(BlogActionTypes.BlogsFetchStart);
+export const BlogsFetchStartAction = createAction(
+  BlogActionTypes.BlogsFetchStart,
+  (name: string = '') => ({ name }),
+);
 
 export const BlogsFetchSuccessAction = createAction(
   BlogActionTypes.BlogsFetchSuccess,
@@ -107,4 +112,13 @@ export const BlogsFetchSuccessAction = createAction(
 export const BlogsFetchFailAction = createAction(
   BlogActionTypes.BlogsFetchFail,
   props<{ errors: BackendErrorsInterface }>(),
+);
+
+export const BlogsPageChangeAction = createAction(
+  BlogActionTypes.BlogsPageChange,
+  props<{ skip: number; take: number }>(),
+);
+export const UserBlogsPageChangeAction = createAction(
+  BlogActionTypes.UserBlogsPageChange,
+  props<{ skip: number; take: number }>(),
 );
