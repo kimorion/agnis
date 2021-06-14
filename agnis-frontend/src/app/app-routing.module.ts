@@ -3,8 +3,9 @@ import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
   {
-    path: '*',
+    path: '',
     redirectTo: 'feed',
+    pathMatch: 'full'
   },
 ];
 
