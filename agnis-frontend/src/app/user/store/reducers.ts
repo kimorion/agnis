@@ -4,6 +4,8 @@ import {
   UserFetchFailureAction,
   UserFetchStartAction,
   UserFetchSuccessAction,
+  UserUpdateFailureAction,
+  UserUpdateSuccessAction,
 } from './Actions/user.action';
 
 const initialState: UserStateInterface = {
@@ -36,6 +38,20 @@ const userReducer = createReducer(
       ...state,
       isLoading: false,
       selectedUser: null,
+    }),
+  ),
+  on(
+    UserUpdateFailureAction,
+    (state, data): UserStateInterface => ({
+      ...state,
+      validationErrors: data.errors,
+    }),
+  ),
+  on(
+    UserUpdateSuccessAction,
+    (state): UserStateInterface => ({
+      ...state,
+      validationErrors: null,
     }),
   ),
 );

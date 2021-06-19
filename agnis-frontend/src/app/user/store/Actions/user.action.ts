@@ -43,5 +43,5 @@ export const UserUpdateSuccessAction = createAction(
 
 export const UserUpdateFailureAction = createAction(
   UserActionTypes.UserUpdateFail,
-  props<{ errors: BackendErrorsInterface }>(),
+  props<{ errors: BackendErrorsInterface | null }>(),
 );

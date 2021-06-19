@@ -5,9 +5,13 @@ import { AppStateInterface } from '../../../shared/types/appState.interface';
 import { UserDataInterface } from '../../../shared/types/userData.interface';
 import { combineLatest, merge, Observable, Subscription } from 'rxjs';
 import { selectedUserSelector, validationErrorsSelector } from '../../store/selectors';
-import { UserFetchStartAction, UserUpdateStartAction } from '../../store/Actions/user.action';
+import {
+  UserFetchStartAction,
+  UserUpdateFailureAction,
+  UserUpdateStartAction,
+} from '../../store/Actions/user.action';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { filter, take } from 'rxjs/operators';
+import { filter, take, timestamp } from 'rxjs/operators';
 import { BackendErrorsInterface } from '../../../shared/types/backendErrors.interface';
 import { currentUserSelector } from '../../../shared/store/selectors';
 
@@ -78,11 +82,23 @@ export class UserComponent implements OnInit, OnDestroy {
   }
 
   onSubmit(): void {
-    if (this.form.valid && this.userId)
+    if (this.form.valid && this.userId) {
       this.store.dispatch(
         UserUpdateStartAction({ userId: this.userId, userData: { ...this.form.value } }),
       );
-    this.isEditing = false;
+      this.isEditing = false;
+    } else {
+      this.store.dispatch(
+        UserUpdateFailureAction({
+          errors: {
+            message: 'Форма заполнена неверно',
+            path: '',
+            statusCode: 400,
+            timestamp: new Date(),
+          },
+        }),
+      );
+    }
   }
 
   enterEdit(): void {
@@ -92,5 +108,10 @@ export class UserComponent implements OnInit, OnDestroy {
   cancelEdit(): void {
     this.isEditing = false;
     this.setFormValues();
+    this.store.dispatch(
+      UserUpdateFailureAction({
+        errors: null,
+      }),
+    );
   }
 }
