@@ -1,26 +1,41 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Store } from '@ngrx/store';
+import { select, Store } from '@ngrx/store';
 import { AppStateInterface } from '../../../shared/types/appState.interface';
 import { UserDataInterface } from '../../../shared/types/userData.interface';
-import { Observable } from 'rxjs';
-import { selectedUserSelector } from '../../store/selectors';
-import { UserFetchStartAction } from '../../store/Actions/user.action';
+import { combineLatest, merge, Observable, Subscription } from 'rxjs';
+import { selectedUserSelector, validationErrorsSelector } from '../../store/selectors';
+import { UserFetchStartAction, UserUpdateStartAction } from '../../store/Actions/user.action';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { filter, take } from 'rxjs/operators';
+import { BackendErrorsInterface } from '../../../shared/types/backendErrors.interface';
+import { currentUserSelector } from '../../../shared/store/selectors';
 
 @Component({
   selector: 'app-user',
   templateUrl: './user.component.html',
   styleUrls: ['./user.component.scss'],
 })
-export class UserComponent implements OnInit {
+export class UserComponent implements OnInit, OnDestroy {
   userInfo: Observable<UserDataInterface | null>;
+  currentUserInfo: Observable<UserDataInterface | null>;
+  userId: string | null = null;
   form: FormGroup;
   isEditing: boolean = false;
+  canEdit: boolean = false;
+  validationErrors: Observable<BackendErrorsInterface | null>;
+  routeParamSubscription: Subscription | null = null;
 
   constructor(private route: ActivatedRoute, private store: Store<AppStateInterface>) {
     this.userInfo = this.store.select(selectedUserSelector);
+    this.currentUserInfo = this.store.select(currentUserSelector);
+    combineLatest([this.currentUserInfo, this.userInfo]).subscribe(([current, selected]) => {
+      this.canEdit =
+        !!current &&
+        !!selected &&
+        (!!current.roleLinks?.some((e) => e.role.name === 'администратор') ||
+          current.id === selected.id);
+    });
 
     this.form = new FormGroup({
       firstName: new FormControl('', [Validators.required]),
@@ -29,6 +44,10 @@ export class UserComponent implements OnInit {
       bio: new FormControl('', []),
     });
 
+    this.validationErrors = this.store.select(validationErrorsSelector);
+  }
+
+  setFormValues(): void {
     this.userInfo
       .pipe(
         filter((e) => !!e),
@@ -43,13 +62,35 @@ export class UserComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    let userId = this.route.snapshot.paramMap.get('id');
-    if (userId) {
-      this.store.dispatch(UserFetchStartAction({ userId: userId }));
+    this.routeParamSubscription = this.route.params.subscribe((e) => {
+      this.userId = e['id'];
+      if (this.userId) {
+        this.store.dispatch(UserFetchStartAction({ userId: this.userId }));
+      }
+      this.setFormValues();
+    });
+  }
+
+  ngOnDestroy(): void {
+    if (this.routeParamSubscription) {
+      this.routeParamSubscription.unsubscribe();
     }
   }
 
   onSubmit(): void {
-    // if (this.form.valid) this.store.dispatch(registerAction({ request: this.form.value }));
+    if (this.form.valid && this.userId)
+      this.store.dispatch(
+        UserUpdateStartAction({ userId: this.userId, userData: { ...this.form.value } }),
+      );
+    this.isEditing = false;
+  }
+
+  enterEdit(): void {
+    this.isEditing = true;
+  }
+
+  cancelEdit(): void {
+    this.isEditing = false;
+    this.setFormValues();
   }
 }

@@ -9,6 +9,7 @@ import {
 const initialState: UserStateInterface = {
   selectedUser: null,
   isLoading: false,
+  validationErrors: null,
 };
 
 const userReducer = createReducer(

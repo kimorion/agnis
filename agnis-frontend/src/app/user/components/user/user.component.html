@@ -24,8 +24,10 @@
 
     <mat-form-field>
       <mat-label>Дата рождения</mat-label>
-      <input required matInput [matDatepicker]='picker' formControlName='birthDate' [readonly]='!isEditing'>
-      <mat-datepicker-toggle matSuffix [for]='picker'></mat-datepicker-toggle>
+      <input
+        required matInput [matDatepicker]='picker' formControlName='birthDate' [readonly]='!isEditing'
+      >
+      <mat-datepicker-toggle matSuffix [for]='picker' [disabled]='!isEditing'></mat-datepicker-toggle>
       <mat-datepicker #picker></mat-datepicker>
 
       <mat-error *ngIf='form.controls.birthDate.invalid'>
@@ -43,17 +45,38 @@
 
     </mat-form-field>
 
-    <div class='app-form-bottom-panel'>
+    <div *ngIf='(userInfo | async)?.roleLinks?.length' class='rolesInfo'>
+      <h2>Роли пользователя: </h2>
+      <ul class='userRolesList'>
+        <li *ngFor='let roleLink of (userInfo | async)?.roleLinks;'>
+          <p>{{roleLink.role.name}}</p>
+        </li>
+      </ul>
+    </div>
 
-<!--            <app-backend-errors-messages-->
-<!--              *ngIf='(validationErrors$ | async)' [backendErrorsProps]='(validationErrors$ | async)'-->
-<!--            ></app-backend-errors-messages>-->
+    <div *ngIf='canEdit' class='app-form-bottom-panel'>
 
-<!--      <button-->
-<!--        mat-button color='primary' type='submit' [disabled]='(false)'-->
-<!--      >-->
-<!--        Сохранить профиль-->
-<!--      </button>-->
+      <app-backend-errors-messages
+        *ngIf='(validationErrors | async)' [backendErrorsProps]='(validationErrors | async)'
+      ></app-backend-errors-messages>
+
+      <button
+        *ngIf='isEditing' mat-button color='primary' type='submit'
+      >
+        Сохранить профиль
+      </button>
+
+      <button
+        *ngIf='!isEditing' mat-button color='primary' (click)='enterEdit()'
+      >
+        Редактировать профиль
+      </button>
+
+      <button
+        *ngIf='isEditing' mat-button color='primary' (click)='cancelEdit()'
+      >
+        Отмена
+      </button>
 
     </div>
 

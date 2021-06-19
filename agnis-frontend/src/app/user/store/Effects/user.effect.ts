@@ -6,6 +6,9 @@ import {
   UserFetchFailureAction,
   UserFetchStartAction,
   UserFetchSuccessAction,
+  UserUpdateFailureAction,
+  UserUpdateStartAction,
+  UserUpdateSuccessAction,
 } from '../Actions/user.action';
 import { catchError, map, switchMap } from 'rxjs/operators';
 import { UserDataInterface } from '../../../shared/types/userData.interface';
@@ -23,6 +26,25 @@ export class userEffect {
           catchError((e) => of(UserFetchFailureAction({ errors: e.error }))),
         ),
       ),
+    ),
+  );
+
+  userUpdateStarted$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(UserUpdateStartAction),
+      switchMap(({ userId, userData }) =>
+        this.userService.updateUser(userId, userData).pipe(
+          map((response: void) => UserUpdateSuccessAction({ userId: userId })),
+          catchError((e) => of(UserUpdateFailureAction({ errors: e.error }))),
+        ),
+      ),
+    ),
+  );
+
+  userUpdateSuccess$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(UserUpdateSuccessAction),
+      switchMap(({ userId }) => of(UserFetchStartAction({ userId: userId }))),
     ),
   );
 

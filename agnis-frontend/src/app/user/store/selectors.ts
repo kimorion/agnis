@@ -11,3 +11,8 @@ export const selectedUserSelector = createSelector(
   userFeatureSelector,
   (state: UserStateInterface) => state.selectedUser,
 );
+
+export const validationErrorsSelector = createSelector(
+  userFeatureSelector,
+  (state: UserStateInterface) => state.validationErrors,
+);

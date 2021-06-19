@@ -22,7 +22,10 @@
 
   <div class='blogInfoWrapper'>
     <p class='descriptionLabel'>Автор: </p>
-    <p class='author'>@{{(this.blogInfo | async)?.user?.login}}</p>
+<!--    <p class='author'>@{{(this.blogInfo | async)?.user?.login}}</p>-->
+    <a
+      class='author' routerLink='/users/{{(blogInfo | async)?.user?.id}}'
+    >@{{(this.blogInfo | async)?.user?.login}}</a>
   </div>
 
   <div *ngIf='(blogInfo | async)?.user!.id === (currentUser | async)?.id'>

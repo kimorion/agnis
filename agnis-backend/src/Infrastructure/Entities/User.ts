@@ -1,5 +1,6 @@
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { BlogSubscription } from './BlogSubscription';
+import { RoleUserLink } from './RoleUserLink';
 
 @Entity()
 export class User {
@@ -23,4 +24,7 @@ export class User {
 
   @OneToMany(() => BlogSubscription, (sub) => sub.user)
   subscriptions!: BlogSubscription[];
+
+  @OneToMany(() => RoleUserLink, (link) => link.user)
+  roleLinks!: RoleUserLink[];
 }

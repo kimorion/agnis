@@ -5,16 +5,17 @@ import { Repository } from 'typeorm';
 
 @Injectable({ scope: Scope.REQUEST })
 export class CurrentUserService {
-  constructor(@InjectRepository(User) private repository: Repository<User>) {
-  }
+  constructor(@InjectRepository(User) private repository: Repository<User>) {}
 
   private currentUser!: User;
 
   async setCurrentUser(userId: string) {
     const result = await this.repository
-      .createQueryBuilder()
+      .createQueryBuilder('u')
       .select()
-      .where('id = :id', { id: userId })
+      .leftJoinAndSelect('u.roleLinks', 'ul')
+      .leftJoinAndSelect('ul.role', 'r')
+      .where('u.id = :id', { id: userId })
       .getOne();
 
     if (!result) {
@@ -24,7 +25,6 @@ export class CurrentUserService {
   }
 
   getCurrentUser(): User {
-
     if (!this.currentUser) {
       throw new UnauthorizedException('Пользователь не авторизован');
     }
