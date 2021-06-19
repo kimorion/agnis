@@ -8,6 +8,10 @@ $testVariable: royalblue;
   box-shadow: 0 0.25em 2em -0.5em colors.$secondary-shadow;
 }
 
+h2{
+  font-weight: 500;
+}
+
 .app-primary-button {
   @extend .app-card-shadow;
   min-width: fit-content;
